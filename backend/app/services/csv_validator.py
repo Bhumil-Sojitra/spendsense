@@ -138,11 +138,6 @@ def validate_csv(
             "preview_rows": [],
         }
 
-    # ── Row count check (only truncate if max_rows > 0) ──────────────────
-    if max_rows is not None and max_rows > 0 and len(df) > max_rows:
-        warnings.append(f"File has {len(df)} rows. Only the first {max_rows} rows will be processed.")
-        df = df.head(max_rows)
-
     columns_found = list(df.columns)
 
     # ── Column mapping ───────────────────────────────────────────────────
