@@ -43,8 +43,8 @@ export default function UploadSection() {
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      setUploadError("File size exceeds 10 MB limit.");
+    if (file.size > 500 * 1024 * 1024) {
+      setUploadError("File size exceeds 500 MB limit.");
       return;
     }
 
