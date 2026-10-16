@@ -127,7 +127,7 @@ export default function UploadSection() {
           Drop your CSV file here, or click to browse
         </p>
         <p className="mt-1 text-xs text-[var(--muted-foreground)]">
-          CSV files up to 500 MB, maximum 1,000,000 rows
+          CSV files up to 500 MB, unlimited rows
         </p>
       </div>
 

@@ -30,7 +30,7 @@ class Settings(BaseSettings):
 
     # Upload limits
     MAX_FILE_SIZE_MB: int = 500
-    MAX_TRANSACTIONS: int = 1000000
+    MAX_TRANSACTIONS: Optional[int] = None
 
     @property
     def cors_origins_list(self) -> list[str]:

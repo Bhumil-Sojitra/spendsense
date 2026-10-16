@@ -11,16 +11,16 @@ logger = logging.getLogger(__name__)
 STANDARD_COLUMNS = {
     "date": [
         "date", "transaction_date", "trans_date", "txn_date", "datetime",
-        "timestamp", "time", "ref_date", "period", "year", "posting_date"
+        "timestamp", "time", "trans_date_trans_time", "ref_date", "period", "year", "posting_date"
     ],
     "amount": [
-        "amount", "expense", "expenses", "income", "expenditure", "expenditures",
+        "amount", "amt", "expense", "expenses", "income", "expenditure", "expenditures",
         "transaction_amount", "value", "sum", "total", "price", "cost", "debit",
-        "credit", "payment", "spend", "charge", "trans_amount"
+        "credit", "payment", "spend", "charge", "trans_amount", "tx_amount", "txn_amt"
     ],
     "description": [
         "description", "desc", "memo", "note", "notes", "narrative",
-        "details", "transaction_description", "family type", "statistic"
+        "details", "transaction_description", "family type", "statistic", "job", "trans_num"
     ],
     "category": [
         "category", "cat", "household expenditures, summary-level categories",
@@ -36,7 +36,7 @@ STANDARD_COLUMNS = {
         "dr_cr", "uom"
     ],
     "account": [
-        "account", "account_name", "account_number", "acct", "bank", "source", "coordinate"
+        "account", "account_name", "account_number", "acct", "bank", "source", "coordinate", "cc_num", "card"
     ],
 }
 
@@ -61,7 +61,7 @@ def auto_map_columns(csv_columns: list[str]) -> dict[str, str]:
         # Substring / partial matching fallback if exact match wasn't found
         if standard_name not in mapping:
             for csv_col_clean, orig_col in csv_lower.items():
-                if any(alias in csv_col_clean for alias in ["expense", "amount", "income", "cost", "total"]) and standard_name == "amount":
+                if any(alias in csv_col_clean for alias in ["amt", "expense", "amount", "income", "cost", "total"]) and standard_name == "amount":
                     mapping["amount"] = orig_col
                     break
                 elif any(alias in csv_col_clean for alias in ["date", "period", "time"]) and standard_name == "date":
@@ -78,7 +78,7 @@ def validate_csv(
     file_content: bytes,
     file_name: str,
     max_size_mb: int = 500,
-    max_rows: int = 1000000,
+    max_rows: Optional[int] = None,
     column_mapping: Optional[dict[str, str]] = None,
 ) -> dict:
     """Validate a CSV file and return validation results with preview data.
@@ -138,9 +138,9 @@ def validate_csv(
             "preview_rows": [],
         }
 
-    # ── Row count check ──────────────────────────────────────────────────
-    if len(df) > max_rows:
-        errors.append(f"File has {len(df)} rows, exceeding maximum of {max_rows}. Only the first {max_rows} rows will be processed.")
+    # ── Row count check (only truncate if max_rows > 0) ──────────────────
+    if max_rows is not None and max_rows > 0 and len(df) > max_rows:
+        warnings.append(f"File has {len(df)} rows. Only the first {max_rows} rows will be processed.")
         df = df.head(max_rows)
 
     columns_found = list(df.columns)
