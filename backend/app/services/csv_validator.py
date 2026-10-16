@@ -9,13 +9,35 @@ logger = logging.getLogger(__name__)
 
 # Standard column names that SpendSense AI works with
 STANDARD_COLUMNS = {
-    "date": ["date", "transaction_date", "trans_date", "txn_date", "datetime", "timestamp", "time"],
-    "amount": ["amount", "transaction_amount", "value", "sum", "total", "price", "cost", "debit", "credit"],
-    "description": ["description", "desc", "memo", "note", "notes", "narrative", "details", "transaction_description"],
-    "category": ["category", "cat", "type", "transaction_type", "trans_type", "group", "classification"],
-    "merchant": ["merchant", "vendor", "payee", "merchant_name", "store", "shop", "company", "name"],
-    "transaction_type": ["transaction_type", "type", "txn_type", "trans_type", "direction", "dr_cr"],
-    "account": ["account", "account_name", "account_number", "acct", "bank", "source"],
+    "date": [
+        "date", "transaction_date", "trans_date", "txn_date", "datetime",
+        "timestamp", "time", "ref_date", "period", "year", "posting_date"
+    ],
+    "amount": [
+        "amount", "expense", "expenses", "income", "expenditure", "expenditures",
+        "transaction_amount", "value", "sum", "total", "price", "cost", "debit",
+        "credit", "payment", "spend", "charge", "trans_amount"
+    ],
+    "description": [
+        "description", "desc", "memo", "note", "notes", "narrative",
+        "details", "transaction_description", "family type", "statistic"
+    ],
+    "category": [
+        "category", "cat", "household expenditures, summary-level categories",
+        "type", "transaction_type", "trans_type", "group", "classification",
+        "sector", "industry"
+    ],
+    "merchant": [
+        "merchant", "vendor", "payee", "merchant_name", "store", "shop",
+        "company", "name", "geo"
+    ],
+    "transaction_type": [
+        "transaction_type", "type", "txn_type", "trans_type", "direction",
+        "dr_cr", "uom"
+    ],
+    "account": [
+        "account", "account_name", "account_number", "acct", "bank", "source", "coordinate"
+    ],
 }
 
 # Required: at least amount must be present
@@ -35,6 +57,19 @@ def auto_map_columns(csv_columns: list[str]) -> dict[str, str]:
             if alias in csv_lower:
                 mapping[standard_name] = csv_lower[alias]
                 break
+        
+        # Substring / partial matching fallback if exact match wasn't found
+        if standard_name not in mapping:
+            for csv_col_clean, orig_col in csv_lower.items():
+                if any(alias in csv_col_clean for alias in ["expense", "amount", "income", "cost", "total"]) and standard_name == "amount":
+                    mapping["amount"] = orig_col
+                    break
+                elif any(alias in csv_col_clean for alias in ["date", "period", "time"]) and standard_name == "date":
+                    mapping["date"] = orig_col
+                    break
+                elif any(alias in csv_col_clean for alias in ["category", "expenditure"]) and standard_name == "category":
+                    mapping["category"] = orig_col
+                    break
 
     return mapping
 
