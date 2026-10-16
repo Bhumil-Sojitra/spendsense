@@ -1,0 +1,501 @@
+date,amount,description,category,merchant,transaction_type,account
+2026-01-01 15:19:29,94.02,Purchase at Target,Shopping,Target,Debit,Sapphire ...9104
+2026-01-01 17:45:40,34.66,Purchase at Spotify,Entertainment,Spotify,Debit,Checking ...4910
+2026-01-01 18:49:27,36.49,Purchase at Nike,Shopping,Nike,Debit,Credit Card ...8832
+2026-01-02 01:31:01,37.77,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Checking ...4910
+2026-01-02 05:26:03,68.86,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Credit Card ...8832
+2026-01-02 18:27:08,41.43,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Savings ...1029
+2026-01-02 23:34:07,19.55,Purchase at Safeway,Groceries,Safeway,Debit,Sapphire ...9104
+2026-01-03 00:26:24,52.78,Purchase at Equinox,Health & Fitness,Equinox,Debit,Checking ...4910
+2026-01-03 15:34:35,178.07,Purchase at Best Buy,Shopping,Best Buy,Debit,Sapphire ...9104
+2026-01-03 21:37:09,36.35,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Sapphire ...9104
+2026-01-03 22:45:09,19.99,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Savings ...1029
+2026-01-04 17:14:43,41.5,Purchase at AMC Theatres,Entertainment,AMC Theatres,Debit,Checking ...4910
+2026-01-04 23:15:14,114.8,Purchase at Amazon,Shopping,Amazon,Debit,Credit Card ...8832
+2026-01-05 03:21:42,120.36,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Sapphire ...9104
+2026-01-05 05:45:13,81.24,Purchase at Apple Store,Shopping,Apple Store,Debit,Sapphire ...9104
+2026-01-05 17:15:40,24.85,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Savings ...1029
+2026-01-05 17:25:24,70.06,Purchase at Nike,Shopping,Nike,Debit,Sapphire ...9104
+2026-01-06 01:04:32,4.96,Purchase at Starbucks,Dining,Starbucks,Debit,Credit Card ...8832
+2026-01-06 15:05:02,82.28,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Savings ...1029
+2026-01-06 17:26:42,43.59,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Savings ...1029
+2026-01-07 01:47:30,22.17,Purchase at Equinox,Health & Fitness,Equinox,Debit,Sapphire ...9104
+2026-01-07 01:59:19,60.45,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Sapphire ...9104
+2026-01-07 02:13:43,15.4,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Credit Card ...8832
+2026-01-07 04:22:44,14.01,Purchase at Netflix,Entertainment,Netflix,Debit,Checking ...4910
+2026-01-07 19:47:26,7.12,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Checking ...4910
+2026-01-07 23:55:30,24.45,Purchase at Lyft,Transportation,Lyft,Debit,Checking ...4910
+2026-01-08 00:44:08,23.51,Purchase at Uber,Transportation,Uber,Debit,Sapphire ...9104
+2026-01-08 01:17:07,36.21,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Savings ...1029
+2026-01-08 03:32:23,108.24,Purchase at Safeway,Groceries,Safeway,Debit,Credit Card ...8832
+2026-01-08 15:44:10,59.29,Purchase at Steam Games,Entertainment,Steam Games,Debit,Checking ...4910
+2026-01-08 16:37:30,41.81,Purchase at Walmart,Shopping,Walmart,Debit,Credit Card ...8832
+2026-01-08 18:29:19,90.86,Purchase at Target,Shopping,Target,Debit,Credit Card ...8832
+2026-01-08 20:24:00,50.37,Purchase at Equinox,Health & Fitness,Equinox,Debit,Sapphire ...9104
+2026-01-09 05:06:51,45.12,Purchase at Spotify,Entertainment,Spotify,Debit,Savings ...1029
+2026-01-09 06:54:25,128.03,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Sapphire ...9104
+2026-01-09 22:49:41,91.99,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Savings ...1029
+2026-01-10 00:25:45,48.68,Purchase at Netflix,Entertainment,Netflix,Debit,Sapphire ...9104
+2026-01-10 01:00:54,12.0,Purchase at Walmart,Shopping,Walmart,Debit,Sapphire ...9104
+2026-01-10 04:26:21,42.88,Purchase at Target,Shopping,Target,Debit,Sapphire ...9104
+2026-01-10 05:02:18,15.0,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Credit Card ...8832
+2026-01-10 06:02:18,20.02,Purchase at Netflix,Entertainment,Netflix,Debit,Sapphire ...9104
+2026-01-10 06:28:40,4.5,Purchase at Shake Shack,Dining,Shake Shack,Debit,Savings ...1029
+2026-01-10 16:10:28,30.05,Purchase at Chevron,Transportation,Chevron,Debit,Sapphire ...9104
+2026-01-10 16:10:50,64.1,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Savings ...1029
+2026-01-10 16:48:00,66.94,Purchase at Netflix,Entertainment,Netflix,Debit,Sapphire ...9104
+2026-01-10 17:17:09,115.09,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Sapphire ...9104
+2026-01-10 18:33:32,44.79,Purchase at Lyft,Transportation,Lyft,Debit,Credit Card ...8832
+2026-01-10 23:57:34,17.53,Purchase at Uber,Transportation,Uber,Debit,Checking ...4910
+2026-01-11 17:27:06,87.77,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Savings ...1029
+2026-01-11 19:20:07,69.17,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Credit Card ...8832
+2026-01-11 20:04:38,51.18,Purchase at ALDI,Groceries,ALDI,Debit,Checking ...4910
+2026-01-11 22:55:06,76.7,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Sapphire ...9104
+2026-01-12 05:54:23,8.08,Purchase at Amtrak,Transportation,Amtrak,Debit,Checking ...4910
+2026-01-12 11:00:00,610.25,Late-night transaction - Uber,Transportation,Uber,Debit,Sapphire ...9104
+2026-01-12 16:55:07,12.3,Purchase at Steam Games,Entertainment,Steam Games,Debit,Credit Card ...8832
+2026-01-12 20:27:28,23.6,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Sapphire ...9104
+2026-01-12 22:52:28,60.23,Purchase at Equinox,Health & Fitness,Equinox,Debit,Savings ...1029
+2026-01-12 23:56:28,29.11,Purchase at Lyft,Transportation,Lyft,Debit,Credit Card ...8832
+2026-01-13 02:35:05,15.0,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Savings ...1029
+2026-01-13 03:29:37,45.4,Purchase at Costco,Groceries,Costco,Debit,Checking ...4910
+2026-01-13 04:00:00,1424.64,Unusual spend volume - National Grid Gas,Utilities,National Grid Gas,Debit,Checking ...4910
+2026-01-13 04:06:48,7.99,Purchase at Local Bistro,Dining,Local Bistro,Debit,Checking ...4910
+2026-01-13 04:53:17,68.25,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Checking ...4910
+2026-01-13 16:41:34,135.85,Purchase at AT&T,Utilities,AT&T,Debit,Checking ...4910
+2026-01-13 21:40:13,12.01,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Savings ...1029
+2026-01-13 23:14:32,48.39,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Credit Card ...8832
+2026-01-14 03:18:16,95.97,Purchase at Kroger,Groceries,Kroger,Debit,Credit Card ...8832
+2026-01-14 17:24:06,19.79,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Savings ...1029
+2026-01-14 22:27:37,70.59,Purchase at Safeway,Groceries,Safeway,Debit,Sapphire ...9104
+2026-01-15 01:15:29,14.54,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Checking ...4910
+2026-01-15 04:23:40,53.94,Purchase at Equinox,Health & Fitness,Equinox,Debit,Sapphire ...9104
+2026-01-15 16:51:42,60.14,Purchase at Lyft,Transportation,Lyft,Debit,Sapphire ...9104
+2026-01-15 21:27:28,93.62,Purchase at Costco,Groceries,Costco,Debit,Credit Card ...8832
+2026-01-15 23:49:41,71.45,Purchase at Nike,Shopping,Nike,Debit,Savings ...1029
+2026-01-16 01:10:46,54.99,Purchase at Lyft,Transportation,Lyft,Debit,Sapphire ...9104
+2026-01-16 02:27:07,26.39,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Savings ...1029
+2026-01-16 04:37:19,23.54,Purchase at Amtrak,Transportation,Amtrak,Debit,Checking ...4910
+2026-01-16 15:40:38,102.58,Purchase at Best Buy,Shopping,Best Buy,Debit,Credit Card ...8832
+2026-01-16 16:22:34,52.02,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Sapphire ...9104
+2026-01-16 20:34:25,39.45,Purchase at Walmart,Shopping,Walmart,Debit,Credit Card ...8832
+2026-01-17 23:10:47,94.27,Purchase at Kroger,Groceries,Kroger,Debit,Sapphire ...9104
+2026-01-18 02:56:04,18.08,Purchase at AMC Theatres,Entertainment,AMC Theatres,Debit,Credit Card ...8832
+2026-01-18 03:00:00,1745.69,Unusual spend volume - Safeway,Groceries,Safeway,Debit,Credit Card ...8832
+2026-01-18 19:14:24,59.22,Purchase at Netflix,Entertainment,Netflix,Debit,Credit Card ...8832
+2026-01-18 22:50:31,103.33,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Checking ...4910
+2026-01-18 23:03:41,120.3,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Sapphire ...9104
+2026-01-18 23:07:56,140.88,Purchase at Amazon,Shopping,Amazon,Debit,Checking ...4910
+2026-01-19 00:00:25,64.34,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Savings ...1029
+2026-01-19 00:15:16,25.86,Purchase at Best Buy,Shopping,Best Buy,Debit,Credit Card ...8832
+2026-01-19 00:20:38,69.66,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Credit Card ...8832
+2026-01-19 01:59:39,14.36,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Savings ...1029
+2026-01-19 03:15:16,65.95,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Credit Card ...8832
+2026-01-19 15:16:35,38.01,Purchase at Spotify,Entertainment,Spotify,Debit,Sapphire ...9104
+2026-01-19 17:08:17,40.56,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Savings ...1029
+2026-01-19 19:02:18,101.53,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Sapphire ...9104
+2026-01-19 23:08:15,24.23,Purchase at Best Buy,Shopping,Best Buy,Debit,Savings ...1029
+2026-01-20 00:02:18,120.88,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Checking ...4910
+2026-01-20 02:19:21,66.06,Purchase at Costco,Groceries,Costco,Debit,Sapphire ...9104
+2026-01-20 03:04:09,16.62,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Checking ...4910
+2026-01-20 04:55:41,89.66,Purchase at Costco,Groceries,Costco,Debit,Credit Card ...8832
+2026-01-20 20:42:39,35.53,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Savings ...1029
+2026-01-20 23:18:38,34.65,Purchase at Apple Store,Shopping,Apple Store,Debit,Credit Card ...8832
+2026-01-21 03:20:23,89.45,Purchase at Nike,Shopping,Nike,Debit,Checking ...4910
+2026-01-21 04:44:13,24.4,Purchase at Chevron,Transportation,Chevron,Debit,Sapphire ...9104
+2026-01-21 16:43:05,66.93,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Savings ...1029
+2026-01-21 22:11:35,178.0,Purchase at Amazon,Shopping,Amazon,Debit,Checking ...4910
+2026-01-21 22:36:53,96.75,Purchase at Kroger,Groceries,Kroger,Debit,Sapphire ...9104
+2026-01-21 23:28:57,25.4,Purchase at Uber,Transportation,Uber,Debit,Credit Card ...8832
+2026-01-22 01:00:00,3687.24,Large authorization - Whole Foods,Groceries,Whole Foods,Debit,Sapphire ...9104
+2026-01-22 01:59:45,44.38,Purchase at Lyft,Transportation,Lyft,Debit,Credit Card ...8832
+2026-01-22 04:21:17,45.63,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Credit Card ...8832
+2026-01-22 04:41:59,34.92,Purchase at ALDI,Groceries,ALDI,Debit,Sapphire ...9104
+2026-01-22 05:53:34,41.18,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Savings ...1029
+2026-01-23 04:31:30,70.14,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Credit Card ...8832
+2026-01-23 05:53:44,15.0,Purchase at Kroger,Groceries,Kroger,Debit,Savings ...1029
+2026-01-23 16:53:25,29.81,Purchase at Shake Shack,Dining,Shake Shack,Debit,Sapphire ...9104
+2026-01-23 19:24:34,111.6,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Credit Card ...8832
+2026-01-23 19:48:48,30.28,Purchase at Lyft,Transportation,Lyft,Debit,Checking ...4910
+2026-01-24 00:25:35,67.06,Purchase at Nike,Shopping,Nike,Debit,Checking ...4910
+2026-01-24 03:20:18,77.1,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Sapphire ...9104
+2026-01-24 04:01:11,38.63,Purchase at Chipotle,Dining,Chipotle,Debit,Savings ...1029
+2026-01-24 04:35:31,64.49,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Checking ...4910
+2026-01-24 15:47:21,78.47,Purchase at Walmart,Shopping,Walmart,Debit,Savings ...1029
+2026-01-24 16:16:24,19.78,Purchase at Shake Shack,Dining,Shake Shack,Debit,Savings ...1029
+2026-01-24 23:29:15,27.54,Purchase at Shake Shack,Dining,Shake Shack,Debit,Checking ...4910
+2026-01-25 02:44:09,56.67,Purchase at Uber,Transportation,Uber,Debit,Sapphire ...9104
+2026-01-25 06:13:22,53.61,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Savings ...1029
+2026-01-25 16:17:24,20.02,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Checking ...4910
+2026-01-25 20:39:54,45.04,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Sapphire ...9104
+2026-01-25 21:30:13,55.21,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Savings ...1029
+2026-01-25 22:17:35,10.0,Purchase at Steam Games,Entertainment,Steam Games,Debit,Savings ...1029
+2026-01-25 22:36:24,150.55,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Credit Card ...8832
+2026-01-25 23:02:45,108.75,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-01-26 02:35:18,12.57,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Checking ...4910
+2026-01-26 18:08:54,129.84,Purchase at Best Buy,Shopping,Best Buy,Debit,Checking ...4910
+2026-01-27 01:14:24,39.72,Purchase at Lyft,Transportation,Lyft,Debit,Credit Card ...8832
+2026-01-27 03:32:02,94.0,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Checking ...4910
+2026-01-27 03:54:30,44.41,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Checking ...4910
+2026-01-27 05:07:16,27.87,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Sapphire ...9104
+2026-01-27 21:52:55,81.82,Purchase at ALDI,Groceries,ALDI,Debit,Credit Card ...8832
+2026-01-27 22:00:00,7500.0,External wire transfer - Best Buy,Shopping,Best Buy,Wire,Credit Card ...8832
+2026-01-27 23:32:31,66.45,Purchase at Walmart,Shopping,Walmart,Debit,Savings ...1029
+2026-01-28 01:38:09,113.39,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Savings ...1029
+2026-01-28 02:20:26,49.3,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Checking ...4910
+2026-01-28 04:24:57,98.53,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Checking ...4910
+2026-01-28 04:50:37,33.38,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Savings ...1029
+2026-01-28 21:47:07,32.7,Purchase at Uber,Transportation,Uber,Debit,Sapphire ...9104
+2026-01-28 22:32:38,84.43,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Checking ...4910
+2026-01-29 16:46:50,127.98,Purchase at AT&T,Utilities,AT&T,Debit,Savings ...1029
+2026-01-29 17:21:01,120.57,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Credit Card ...8832
+2026-01-29 21:00:00,1157.55,Unusual spend volume - City Water & Power,Utilities,City Water & Power,Debit,Checking ...4910
+2026-01-29 21:09:01,106.43,Purchase at Walmart,Shopping,Walmart,Debit,Checking ...4910
+2026-01-29 21:39:16,10.0,Purchase at AMC Theatres,Entertainment,AMC Theatres,Debit,Credit Card ...8832
+2026-01-29 22:08:30,32.37,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Credit Card ...8832
+2026-01-30 03:44:15,88.73,Purchase at Kroger,Groceries,Kroger,Debit,Savings ...1029
+2026-01-30 04:19:17,194.89,Purchase at Apple Store,Shopping,Apple Store,Debit,Checking ...4910
+2026-01-30 17:45:09,29.98,Purchase at Local Bistro,Dining,Local Bistro,Debit,Checking ...4910
+2026-01-30 18:46:12,10.97,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Savings ...1029
+2026-01-30 21:48:55,78.56,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Checking ...4910
+2026-01-30 21:57:55,69.22,Purchase at Netflix,Entertainment,Netflix,Debit,Sapphire ...9104
+2026-01-30 22:01:42,47.05,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Credit Card ...8832
+2026-01-30 22:19:51,15.0,Purchase at Equinox,Health & Fitness,Equinox,Debit,Sapphire ...9104
+2026-01-30 22:29:22,43.54,Purchase at Steam Games,Entertainment,Steam Games,Debit,Credit Card ...8832
+2026-01-30 23:50:50,89.41,Purchase at Costco,Groceries,Costco,Debit,Credit Card ...8832
+2026-01-31 00:45:18,27.17,Purchase at Uber,Transportation,Uber,Debit,Sapphire ...9104
+2026-01-31 06:01:39,90.69,Purchase at Costco,Groceries,Costco,Debit,Savings ...1029
+2026-01-31 16:15:56,14.74,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Checking ...4910
+2026-01-31 21:04:06,58.76,Purchase at Netflix,Entertainment,Netflix,Debit,Checking ...4910
+2026-02-01 00:07:03,78.86,Purchase at Kroger,Groceries,Kroger,Debit,Credit Card ...8832
+2026-02-01 05:48:17,35.36,Purchase at Chevron,Transportation,Chevron,Debit,Savings ...1029
+2026-02-01 19:06:03,63.39,Purchase at Chevron,Transportation,Chevron,Debit,Savings ...1029
+2026-02-01 19:50:36,75.73,Purchase at Kroger,Groceries,Kroger,Debit,Credit Card ...8832
+2026-02-01 20:29:24,41.05,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Savings ...1029
+2026-02-01 20:43:24,108.04,Purchase at Apple Store,Shopping,Apple Store,Debit,Credit Card ...8832
+2026-02-01 21:12:34,15.0,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Sapphire ...9104
+2026-02-01 21:53:01,22.91,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Credit Card ...8832
+2026-02-01 22:19:43,171.44,Purchase at AT&T,Utilities,AT&T,Debit,Checking ...4910
+2026-02-02 06:38:39,30.66,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Credit Card ...8832
+2026-02-02 17:30:01,25.69,Purchase at Chevron,Transportation,Chevron,Debit,Checking ...4910
+2026-02-02 18:00:00,674.2,Unusual spend volume - Sweetgreen,Dining,Sweetgreen,Debit,Checking ...4910
+2026-02-02 20:07:42,42.97,Purchase at Olive Garden,Dining,Olive Garden,Debit,Checking ...4910
+2026-02-02 21:53:09,35.55,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Sapphire ...9104
+2026-02-03 00:20:07,27.9,Purchase at Chipotle,Dining,Chipotle,Debit,Checking ...4910
+2026-02-03 16:06:38,30.51,Purchase at Olive Garden,Dining,Olive Garden,Debit,Sapphire ...9104
+2026-02-03 22:46:03,14.44,Purchase at Steam Games,Entertainment,Steam Games,Debit,Sapphire ...9104
+2026-02-04 01:39:44,121.9,Purchase at Safeway,Groceries,Safeway,Debit,Sapphire ...9104
+2026-02-04 12:00:00,631.47,Late-night transaction - Amtrak,Transportation,Amtrak,Debit,Savings ...1029
+2026-02-04 17:38:40,15.62,Purchase at Local Bistro,Dining,Local Bistro,Debit,Credit Card ...8832
+2026-02-04 20:16:58,46.83,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Sapphire ...9104
+2026-02-04 23:08:06,39.44,Purchase at Olive Garden,Dining,Olive Garden,Debit,Credit Card ...8832
+2026-02-05 00:58:21,85.59,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Savings ...1029
+2026-02-05 03:05:23,137.43,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Sapphire ...9104
+2026-02-05 16:04:42,43.93,Purchase at Steam Games,Entertainment,Steam Games,Debit,Sapphire ...9104
+2026-02-05 17:49:17,122.66,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Savings ...1029
+2026-02-05 23:00:00,9429.55,Large authorization - Amazon,Shopping,Amazon,Debit,Sapphire ...9104
+2026-02-06 04:19:30,4.5,Purchase at Shake Shack,Dining,Shake Shack,Debit,Checking ...4910
+2026-02-06 04:21:59,81.26,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Savings ...1029
+2026-02-06 11:00:00,614.83,Late-night transaction - City Water & Power,Utilities,City Water & Power,Debit,Sapphire ...9104
+2026-02-06 17:16:12,44.2,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Savings ...1029
+2026-02-06 20:04:28,55.52,Purchase at Equinox,Health & Fitness,Equinox,Debit,Savings ...1029
+2026-02-06 21:44:45,11.07,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Sapphire ...9104
+2026-02-06 22:17:21,113.4,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Savings ...1029
+2026-02-07 00:22:06,35.59,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Credit Card ...8832
+2026-02-07 00:53:37,16.01,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Sapphire ...9104
+2026-02-07 01:05:52,71.82,Purchase at Amazon,Shopping,Amazon,Debit,Credit Card ...8832
+2026-02-07 01:18:41,109.35,Purchase at City Water & Power,Utilities,City Water & Power,Debit,Checking ...4910
+2026-02-07 03:29:34,50.57,Purchase at AMC Theatres,Entertainment,AMC Theatres,Debit,Savings ...1029
+2026-02-07 03:52:48,120.39,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Checking ...4910
+2026-02-07 04:44:46,27.48,Purchase at Chevron,Transportation,Chevron,Debit,Sapphire ...9104
+2026-02-07 06:38:56,83.72,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Sapphire ...9104
+2026-02-07 16:00:19,9.11,Purchase at Local Bistro,Dining,Local Bistro,Debit,Checking ...4910
+2026-02-07 18:32:49,37.94,Purchase at Starbucks,Dining,Starbucks,Debit,Checking ...4910
+2026-02-07 21:03:37,4.5,Purchase at Chipotle,Dining,Chipotle,Debit,Checking ...4910
+2026-02-07 22:52:58,32.85,Purchase at Olive Garden,Dining,Olive Garden,Debit,Savings ...1029
+2026-02-08 00:30:15,121.35,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-02-08 02:23:27,30.84,Purchase at Uber,Transportation,Uber,Debit,Credit Card ...8832
+2026-02-08 17:32:41,47.5,Purchase at Local Bistro,Dining,Local Bistro,Debit,Credit Card ...8832
+2026-02-08 23:31:09,23.41,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Checking ...4910
+2026-02-09 04:19:36,126.58,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Checking ...4910
+2026-02-09 06:52:01,109.78,Purchase at Apple Store,Shopping,Apple Store,Debit,Savings ...1029
+2026-02-09 15:35:26,42.14,Purchase at Target,Shopping,Target,Debit,Checking ...4910
+2026-02-09 18:37:01,130.45,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Savings ...1029
+2026-02-10 05:23:48,113.86,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Savings ...1029
+2026-02-10 17:19:02,117.49,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Checking ...4910
+2026-02-10 21:41:31,20.94,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Sapphire ...9104
+2026-02-10 23:20:07,118.77,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Sapphire ...9104
+2026-02-10 23:23:09,27.27,Purchase at Chevron,Transportation,Chevron,Debit,Sapphire ...9104
+2026-02-11 03:17:04,4.5,Purchase at Starbucks,Dining,Starbucks,Debit,Credit Card ...8832
+2026-02-11 03:39:25,10.0,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Checking ...4910
+2026-02-11 04:38:32,55.07,Purchase at Amtrak,Transportation,Amtrak,Debit,Checking ...4910
+2026-02-11 18:54:10,128.27,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Savings ...1029
+2026-02-12 00:19:28,47.32,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Sapphire ...9104
+2026-02-12 01:48:56,4.5,Purchase at Shake Shack,Dining,Shake Shack,Debit,Sapphire ...9104
+2026-02-12 03:17:52,22.15,Purchase at Spotify,Entertainment,Spotify,Debit,Sapphire ...9104
+2026-02-12 19:02:22,15.0,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Savings ...1029
+2026-02-13 02:44:29,159.1,Purchase at AT&T,Utilities,AT&T,Debit,Savings ...1029
+2026-02-13 03:20:40,70.28,Purchase at Amazon,Shopping,Amazon,Debit,Sapphire ...9104
+2026-02-13 03:48:47,12.0,Purchase at Apple Store,Shopping,Apple Store,Debit,Credit Card ...8832
+2026-02-13 06:06:43,64.43,Purchase at Safeway,Groceries,Safeway,Debit,Credit Card ...8832
+2026-02-13 06:33:29,60.59,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Credit Card ...8832
+2026-02-13 16:50:40,184.28,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Savings ...1029
+2026-02-13 18:29:04,52.09,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Credit Card ...8832
+2026-02-14 03:49:20,4.5,Purchase at Starbucks,Dining,Starbucks,Debit,Checking ...4910
+2026-02-14 06:12:14,31.99,Purchase at Chipotle,Dining,Chipotle,Debit,Credit Card ...8832
+2026-02-14 19:15:06,23.3,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Credit Card ...8832
+2026-02-14 22:46:42,55.79,Purchase at Uber,Transportation,Uber,Debit,Checking ...4910
+2026-02-14 23:18:07,28.8,Purchase at Chevron,Transportation,Chevron,Debit,Sapphire ...9104
+2026-02-15 03:08:48,78.81,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Savings ...1029
+2026-02-15 20:41:39,78.58,Purchase at Nike,Shopping,Nike,Debit,Checking ...4910
+2026-02-15 22:37:20,4.5,Purchase at Starbucks,Dining,Starbucks,Debit,Checking ...4910
+2026-02-16 04:39:47,13.23,Purchase at Amazon,Shopping,Amazon,Debit,Credit Card ...8832
+2026-02-16 19:05:58,58.3,Purchase at ALDI,Groceries,ALDI,Debit,Savings ...1029
+2026-02-16 20:19:00,17.14,Purchase at Lyft,Transportation,Lyft,Debit,Credit Card ...8832
+2026-02-17 06:29:06,15.99,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Sapphire ...9104
+2026-02-17 18:48:17,147.59,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Credit Card ...8832
+2026-02-17 19:27:08,30.36,Purchase at Netflix,Entertainment,Netflix,Debit,Checking ...4910
+2026-02-17 20:38:38,109.24,Purchase at Walmart,Shopping,Walmart,Debit,Checking ...4910
+2026-02-17 22:01:20,59.74,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Checking ...4910
+2026-02-17 23:51:05,72.51,Purchase at Best Buy,Shopping,Best Buy,Debit,Sapphire ...9104
+2026-02-18 00:46:20,48.33,Purchase at Lyft,Transportation,Lyft,Debit,Checking ...4910
+2026-02-18 04:37:47,123.49,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Credit Card ...8832
+2026-02-18 04:44:35,127.43,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-02-18 05:29:49,44.9,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Savings ...1029
+2026-02-18 05:57:33,48.9,Purchase at Nike,Shopping,Nike,Debit,Sapphire ...9104
+2026-02-18 06:35:33,30.44,Purchase at Apple Store,Shopping,Apple Store,Debit,Savings ...1029
+2026-02-18 17:28:38,115.24,Purchase at Best Buy,Shopping,Best Buy,Debit,Sapphire ...9104
+2026-02-18 17:35:18,54.19,Purchase at Netflix,Entertainment,Netflix,Debit,Savings ...1029
+2026-02-18 17:43:42,91.6,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Credit Card ...8832
+2026-02-19 00:00:00,661.35,Unusual spend volume - Olive Garden,Dining,Olive Garden,Debit,Savings ...1029
+2026-02-19 01:28:21,81.79,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Sapphire ...9104
+2026-02-19 01:52:08,51.0,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Checking ...4910
+2026-02-19 03:45:12,39.36,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Checking ...4910
+2026-02-19 06:00:22,39.32,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Savings ...1029
+2026-02-20 01:00:00,945.13,Unusual spend volume - Safeway,Groceries,Safeway,Debit,Credit Card ...8832
+2026-02-20 02:16:47,84.86,Purchase at Costco,Groceries,Costco,Debit,Checking ...4910
+2026-02-20 06:25:15,53.9,Purchase at Nike,Shopping,Nike,Debit,Credit Card ...8832
+2026-02-20 16:00:13,43.09,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Savings ...1029
+2026-02-20 23:00:36,83.77,Purchase at Costco,Groceries,Costco,Debit,Checking ...4910
+2026-02-20 23:52:00,36.5,Purchase at Amazon,Shopping,Amazon,Debit,Credit Card ...8832
+2026-02-21 00:47:21,18.46,Purchase at Netflix,Entertainment,Netflix,Debit,Credit Card ...8832
+2026-02-21 02:50:21,11.81,Purchase at Starbucks,Dining,Starbucks,Debit,Savings ...1029
+2026-02-21 05:15:13,88.75,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Savings ...1029
+2026-02-21 05:49:43,68.07,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Credit Card ...8832
+2026-02-21 18:56:36,148.43,Purchase at Target,Shopping,Target,Debit,Credit Card ...8832
+2026-02-22 01:01:07,46.29,Purchase at Apple Store,Shopping,Apple Store,Debit,Savings ...1029
+2026-02-22 02:02:25,84.27,Purchase at Walmart,Shopping,Walmart,Debit,Checking ...4910
+2026-02-22 06:04:36,15.0,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Checking ...4910
+2026-02-22 17:08:20,29.95,Purchase at Steam Games,Entertainment,Steam Games,Debit,Checking ...4910
+2026-02-22 19:19:24,12.0,Purchase at Best Buy,Shopping,Best Buy,Debit,Credit Card ...8832
+2026-02-22 20:10:11,30.14,Purchase at Olive Garden,Dining,Olive Garden,Debit,Checking ...4910
+2026-02-22 21:06:06,4.5,Purchase at Shake Shack,Dining,Shake Shack,Debit,Sapphire ...9104
+2026-02-23 02:55:42,70.79,Purchase at Amazon,Shopping,Amazon,Debit,Sapphire ...9104
+2026-02-23 05:44:38,9.9,Purchase at Starbucks,Dining,Starbucks,Debit,Sapphire ...9104
+2026-02-23 05:55:46,35.13,Purchase at Chevron,Transportation,Chevron,Debit,Checking ...4910
+2026-02-23 06:35:48,99.28,Purchase at Trader Joe's,Groceries,Trader Joe's,Debit,Credit Card ...8832
+2026-02-23 20:12:08,42.71,Purchase at Amtrak,Transportation,Amtrak,Debit,Savings ...1029
+2026-02-23 22:00:00,20000.0,External wire transfer - Best Buy,Shopping,Best Buy,Wire,Sapphire ...9104
+2026-02-23 22:31:14,15.0,Purchase at Equinox,Health & Fitness,Equinox,Debit,Savings ...1029
+2026-02-23 22:55:57,74.79,Purchase at AT&T,Utilities,AT&T,Debit,Credit Card ...8832
+2026-02-24 15:07:04,23.02,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Credit Card ...8832
+2026-02-24 18:00:00,933.37,Unusual spend volume - Netflix,Entertainment,Netflix,Debit,Sapphire ...9104
+2026-02-25 02:01:23,42.54,Purchase at Nike,Shopping,Nike,Debit,Savings ...1029
+2026-02-25 03:00:45,91.43,Purchase at AT&T,Utilities,AT&T,Debit,Credit Card ...8832
+2026-02-25 03:23:14,103.85,Purchase at Apple Store,Shopping,Apple Store,Debit,Credit Card ...8832
+2026-02-25 16:53:07,98.95,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Credit Card ...8832
+2026-02-25 20:29:00,67.03,Purchase at Kroger,Groceries,Kroger,Debit,Savings ...1029
+2026-02-25 20:46:33,88.61,Purchase at Target,Shopping,Target,Debit,Savings ...1029
+2026-02-26 17:36:08,44.19,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Savings ...1029
+2026-02-26 17:51:43,131.36,Purchase at City Water & Power,Utilities,City Water & Power,Debit,Savings ...1029
+2026-02-26 18:33:58,71.51,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Sapphire ...9104
+2026-02-26 21:32:30,45.0,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Credit Card ...8832
+2026-02-26 22:54:23,26.77,Purchase at Shake Shack,Dining,Shake Shack,Debit,Checking ...4910
+2026-02-27 02:28:02,39.29,Purchase at Local Bistro,Dining,Local Bistro,Debit,Savings ...1029
+2026-02-27 03:21:11,88.21,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Sapphire ...9104
+2026-02-27 16:03:23,24.88,Purchase at Chevron,Transportation,Chevron,Debit,Savings ...1029
+2026-02-27 23:52:39,112.65,Purchase at AT&T,Utilities,AT&T,Debit,Checking ...4910
+2026-02-28 06:14:22,68.84,Purchase at Walmart,Shopping,Walmart,Debit,Sapphire ...9104
+2026-02-28 06:22:21,86.48,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Sapphire ...9104
+2026-02-28 17:07:53,116.97,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-02-28 17:42:13,4.5,Purchase at Starbucks,Dining,Starbucks,Debit,Checking ...4910
+2026-02-28 17:55:20,185.04,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Sapphire ...9104
+2026-02-28 19:24:12,68.3,Purchase at City Water & Power,Utilities,City Water & Power,Debit,Credit Card ...8832
+2026-02-28 19:32:26,62.33,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Sapphire ...9104
+2026-02-28 19:51:29,91.62,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Savings ...1029
+2026-02-28 20:52:43,9.27,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Savings ...1029
+2026-03-01 01:00:00,5434.4,Large authorization - Lyft,Transportation,Lyft,Debit,Savings ...1029
+2026-03-01 02:03:39,10.53,Purchase at Olive Garden,Dining,Olive Garden,Debit,Sapphire ...9104
+2026-03-01 03:26:46,132.8,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Checking ...4910
+2026-03-01 06:56:08,39.79,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Sapphire ...9104
+2026-03-01 16:35:26,50.42,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Sapphire ...9104
+2026-03-01 18:41:53,57.58,Purchase at Starbucks,Dining,Starbucks,Debit,Credit Card ...8832
+2026-03-01 19:39:34,100.66,Purchase at Target,Shopping,Target,Debit,Checking ...4910
+2026-03-01 22:51:25,50.35,Purchase at Steam Games,Entertainment,Steam Games,Debit,Credit Card ...8832
+2026-03-01 23:35:55,161.3,Purchase at AT&T,Utilities,AT&T,Debit,Checking ...4910
+2026-03-02 06:56:19,150.53,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-03-02 16:45:08,23.22,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Credit Card ...8832
+2026-03-02 18:36:13,21.1,Purchase at Chipotle,Dining,Chipotle,Debit,Sapphire ...9104
+2026-03-02 20:16:33,13.19,Purchase at Local Bistro,Dining,Local Bistro,Debit,Sapphire ...9104
+2026-03-02 22:12:52,107.48,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Sapphire ...9104
+2026-03-02 22:54:14,109.15,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Savings ...1029
+2026-03-02 23:02:48,78.53,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Credit Card ...8832
+2026-03-03 05:16:48,14.46,Purchase at Local Bistro,Dining,Local Bistro,Debit,Credit Card ...8832
+2026-03-03 05:49:23,115.9,Purchase at Amazon,Shopping,Amazon,Debit,Checking ...4910
+2026-03-03 18:18:26,61.47,Purchase at Uber,Transportation,Uber,Debit,Checking ...4910
+2026-03-03 22:54:06,25.47,Purchase at Local Bistro,Dining,Local Bistro,Debit,Savings ...1029
+2026-03-04 01:59:15,16.78,Purchase at Chipotle,Dining,Chipotle,Debit,Checking ...4910
+2026-03-04 05:27:52,96.58,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Savings ...1029
+2026-03-04 17:48:34,76.27,Purchase at Costco,Groceries,Costco,Debit,Credit Card ...8832
+2026-03-04 17:57:32,137.34,Purchase at Apple Store,Shopping,Apple Store,Debit,Sapphire ...9104
+2026-03-04 21:34:08,44.34,Purchase at Amtrak,Transportation,Amtrak,Debit,Sapphire ...9104
+2026-03-04 22:00:00,7500.0,External wire transfer - Nike,Shopping,Nike,Wire,Credit Card ...8832
+2026-03-05 03:00:00,844.59,Unusual spend volume - Spotify,Entertainment,Spotify,Debit,Sapphire ...9104
+2026-03-05 04:17:02,79.06,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Savings ...1029
+2026-03-05 05:04:57,316.16,Purchase at Amazon,Shopping,Amazon,Credit,Checking ...4910
+2026-03-05 05:10:46,17.52,Purchase at Nike,Shopping,Nike,Debit,Savings ...1029
+2026-03-05 05:26:17,72.28,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Credit Card ...8832
+2026-03-05 16:08:32,143.72,Purchase at City Water & Power,Utilities,City Water & Power,Debit,Savings ...1029
+2026-03-05 18:06:15,70.2,Purchase at Kroger,Groceries,Kroger,Debit,Credit Card ...8832
+2026-03-06 00:49:51,13.57,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Credit Card ...8832
+2026-03-06 03:58:35,35.26,Purchase at Target,Shopping,Target,Debit,Checking ...4910
+2026-03-06 05:48:36,33.09,Purchase at Local Bistro,Dining,Local Bistro,Debit,Sapphire ...9104
+2026-03-06 15:24:55,37.84,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Sapphire ...9104
+2026-03-06 18:55:40,10.0,Purchase at Spotify,Entertainment,Spotify,Debit,Savings ...1029
+2026-03-06 20:02:15,12.0,Purchase at Amazon,Shopping,Amazon,Debit,Sapphire ...9104
+2026-03-06 21:36:34,129.6,Purchase at ALDI,Groceries,ALDI,Debit,Credit Card ...8832
+2026-03-07 00:42:26,134.31,Purchase at Walmart,Shopping,Walmart,Debit,Savings ...1029
+2026-03-07 02:03:06,15.0,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Sapphire ...9104
+2026-03-07 04:10:52,15.0,Purchase at Equinox,Health & Fitness,Equinox,Debit,Credit Card ...8832
+2026-03-07 23:26:53,126.58,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Sapphire ...9104
+2026-03-08 01:05:25,82.61,Purchase at Equinox,Health & Fitness,Equinox,Debit,Checking ...4910
+2026-03-08 20:23:23,142.13,Purchase at AT&T,Utilities,AT&T,Debit,Savings ...1029
+2026-03-08 20:35:10,71.74,Purchase at Target,Shopping,Target,Debit,Savings ...1029
+2026-03-09 05:03:35,14.97,Purchase at Local Bistro,Dining,Local Bistro,Debit,Credit Card ...8832
+2026-03-09 05:07:43,10.19,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Credit Card ...8832
+2026-03-09 06:22:30,27.01,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Checking ...4910
+2026-03-09 06:40:15,75.53,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Savings ...1029
+2026-03-09 15:42:52,60.77,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Savings ...1029
+2026-03-09 19:15:12,67.03,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Savings ...1029
+2026-03-09 21:24:26,50.84,Purchase at Costco,Groceries,Costco,Debit,Sapphire ...9104
+2026-03-09 23:34:18,68.47,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Checking ...4910
+2026-03-10 00:29:32,149.74,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-03-10 02:04:58,58.98,Purchase at Steam Games,Entertainment,Steam Games,Debit,Checking ...4910
+2026-03-10 20:12:13,82.61,Purchase at Costco,Groceries,Costco,Debit,Sapphire ...9104
+2026-03-10 21:23:27,111.94,Purchase at ALDI,Groceries,ALDI,Debit,Checking ...4910
+2026-03-10 23:00:00,2880.19,Unusual spend volume - Nike,Shopping,Nike,Debit,Savings ...1029
+2026-03-11 01:34:22,4.5,Purchase at Shake Shack,Dining,Shake Shack,Debit,Savings ...1029
+2026-03-11 04:34:02,21.74,Purchase at Steam Games,Entertainment,Steam Games,Debit,Savings ...1029
+2026-03-11 22:00:00,10000.0,External wire transfer - Netflix,Entertainment,Netflix,Wire,Checking ...4910
+2026-03-11 22:41:09,66.92,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Savings ...1029
+2026-03-12 02:03:25,88.49,Purchase at Walmart,Shopping,Walmart,Debit,Savings ...1029
+2026-03-12 06:11:58,4.5,Purchase at Chipotle,Dining,Chipotle,Debit,Checking ...4910
+2026-03-12 18:45:54,15.0,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Checking ...4910
+2026-03-12 19:12:26,113.05,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Sapphire ...9104
+2026-03-12 19:59:18,28.18,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Sapphire ...9104
+2026-03-13 15:38:59,15.0,Purchase at Equinox,Health & Fitness,Equinox,Debit,Savings ...1029
+2026-03-13 16:37:35,24.09,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Savings ...1029
+2026-03-13 22:43:20,12.0,Purchase at Nike,Shopping,Nike,Debit,Checking ...4910
+2026-03-14 05:43:51,89.75,Purchase at Netflix,Entertainment,Netflix,Debit,Savings ...1029
+2026-03-14 15:05:41,110.18,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-03-14 16:38:09,36.61,Purchase at Chevron,Transportation,Chevron,Debit,Sapphire ...9104
+2026-03-14 21:37:34,16.11,Purchase at Uber,Transportation,Uber,Debit,Credit Card ...8832
+2026-03-15 00:05:15,25.23,Purchase at Chipotle,Dining,Chipotle,Debit,Checking ...4910
+2026-03-15 00:28:07,67.68,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Sapphire ...9104
+2026-03-15 03:21:01,67.06,Purchase at Equinox,Health & Fitness,Equinox,Debit,Sapphire ...9104
+2026-03-15 15:16:41,32.19,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Savings ...1029
+2026-03-15 16:48:48,86.27,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Credit Card ...8832
+2026-03-16 00:30:30,67.99,Purchase at Whole Foods,Groceries,Whole Foods,Debit,Sapphire ...9104
+2026-03-16 01:12:48,15.0,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Credit Card ...8832
+2026-03-16 02:29:51,23.13,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Credit Card ...8832
+2026-03-16 02:36:18,72.96,Purchase at Shake Shack,Dining,Shake Shack,Debit,Savings ...1029
+2026-03-16 04:39:40,66.38,Purchase at Target,Shopping,Target,Debit,Checking ...4910
+2026-03-16 19:58:22,9.21,Purchase at Uber,Transportation,Uber,Debit,Savings ...1029
+2026-03-17 16:22:32,41.62,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Checking ...4910
+2026-03-17 23:00:00,12823.08,Large authorization - Walgreens,Health & Fitness,Walgreens,Debit,Credit Card ...8832
+2026-03-18 00:06:53,64.86,Purchase at Amtrak,Transportation,Amtrak,Debit,Credit Card ...8832
+2026-03-18 06:33:42,125.78,Purchase at Nike,Shopping,Nike,Debit,Savings ...1029
+2026-03-18 12:00:00,825.82,Late-night transaction - CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Savings ...1029
+2026-03-18 15:17:54,48.25,Purchase at Lyft,Transportation,Lyft,Debit,Credit Card ...8832
+2026-03-18 16:56:27,116.46,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Savings ...1029
+2026-03-18 17:06:49,37.43,Purchase at Apple Store,Shopping,Apple Store,Debit,Credit Card ...8832
+2026-03-18 23:35:00,14.47,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Credit Card ...8832
+2026-03-19 20:34:18,50.21,Purchase at Safeway,Groceries,Safeway,Debit,Savings ...1029
+2026-03-19 21:09:23,33.22,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Credit Card ...8832
+2026-03-19 21:25:58,15.9,Purchase at Local Bistro,Dining,Local Bistro,Debit,Credit Card ...8832
+2026-03-19 22:49:33,10.0,Purchase at Steam Games,Entertainment,Steam Games,Debit,Sapphire ...9104
+2026-03-19 23:51:02,118.17,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Sapphire ...9104
+2026-03-20 17:29:26,50.6,Purchase at Shake Shack,Dining,Shake Shack,Debit,Credit Card ...8832
+2026-03-21 00:37:21,18.22,Purchase at Shake Shack,Dining,Shake Shack,Debit,Sapphire ...9104
+2026-03-21 02:15:36,112.44,Purchase at ConEd Electric,Utilities,ConEd Electric,Debit,Sapphire ...9104
+2026-03-21 04:53:58,68.15,Purchase at Equinox,Health & Fitness,Equinox,Debit,Sapphire ...9104
+2026-03-21 17:00:00,764.15,Unusual spend volume - Chipotle,Dining,Chipotle,Debit,Savings ...1029
+2026-03-21 18:04:34,53.45,Purchase at Safeway,Groceries,Safeway,Debit,Credit Card ...8832
+2026-03-21 19:38:24,29.38,Purchase at Walmart,Shopping,Walmart,Debit,Credit Card ...8832
+2026-03-21 22:31:58,41.92,Purchase at Steam Games,Entertainment,Steam Games,Debit,Credit Card ...8832
+2026-03-22 01:42:54,12.0,Purchase at Walmart,Shopping,Walmart,Debit,Checking ...4910
+2026-03-22 06:40:28,18.0,Purchase at AMC Theatres,Entertainment,AMC Theatres,Debit,Checking ...4910
+2026-03-22 16:19:50,113.95,Purchase at Amazon,Shopping,Amazon,Debit,Sapphire ...9104
+2026-03-22 22:06:44,41.44,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Savings ...1029
+2026-03-23 03:09:52,28.39,Purchase at Olive Garden,Dining,Olive Garden,Debit,Credit Card ...8832
+2026-03-23 23:29:16,38.89,Purchase at Shake Shack,Dining,Shake Shack,Debit,Checking ...4910
+2026-03-24 02:10:23,25.05,Purchase at Chevron,Transportation,Chevron,Debit,Savings ...1029
+2026-03-24 04:44:16,71.34,Purchase at AMC Theatres,Entertainment,AMC Theatres,Debit,Sapphire ...9104
+2026-03-24 06:05:30,10.0,Purchase at Steam Games,Entertainment,Steam Games,Debit,Savings ...1029
+2026-03-24 17:40:52,40.35,Purchase at Spotify,Entertainment,Spotify,Debit,Sapphire ...9104
+2026-03-24 18:03:25,12.0,Purchase at Nike,Shopping,Nike,Debit,Savings ...1029
+2026-03-24 18:43:51,61.63,Purchase at Kroger,Groceries,Kroger,Debit,Credit Card ...8832
+2026-03-25 00:29:20,29.83,Purchase at Local Bistro,Dining,Local Bistro,Debit,Checking ...4910
+2026-03-25 01:36:54,132.59,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Checking ...4910
+2026-03-25 01:55:40,136.95,Purchase at Apple Store,Shopping,Apple Store,Debit,Savings ...1029
+2026-03-25 04:23:57,4.5,Purchase at Chipotle,Dining,Chipotle,Debit,Sapphire ...9104
+2026-03-25 06:28:50,130.12,Purchase at Best Buy,Shopping,Best Buy,Debit,Checking ...4910
+2026-03-25 17:49:41,26.86,Purchase at Lyft,Transportation,Lyft,Debit,Checking ...4910
+2026-03-25 20:00:00,14913.59,Large authorization - Shake Shack,Dining,Shake Shack,Debit,Checking ...4910
+2026-03-25 21:20:38,171.79,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-03-25 22:34:47,43.45,Purchase at CVS Pharmacy,Health & Fitness,CVS Pharmacy,Debit,Checking ...4910
+2026-03-25 23:15:07,132.04,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Checking ...4910
+2026-03-25 23:47:30,54.13,Purchase at Chevron,Transportation,Chevron,Debit,Credit Card ...8832
+2026-03-26 01:16:48,134.91,Purchase at AT&T,Utilities,AT&T,Debit,Sapphire ...9104
+2026-03-26 04:07:08,12.0,Purchase at Walmart,Shopping,Walmart,Debit,Checking ...4910
+2026-03-26 04:14:28,73.08,Purchase at Spotify,Entertainment,Spotify,Debit,Savings ...1029
+2026-03-26 05:58:17,66.71,Purchase at AT&T,Utilities,AT&T,Debit,Credit Card ...8832
+2026-03-27 03:08:38,55.95,Purchase at Nike,Shopping,Nike,Debit,Checking ...4910
+2026-03-27 04:25:01,37.64,Purchase at Local Bistro,Dining,Local Bistro,Debit,Credit Card ...8832
+2026-03-27 06:33:24,40.8,Purchase at AMC Theatres,Entertainment,AMC Theatres,Debit,Savings ...1029
+2026-03-27 17:33:23,17.06,Purchase at Local Bistro,Dining,Local Bistro,Debit,Checking ...4910
+2026-03-27 21:48:15,113.05,Purchase at Quest Diagnostics,Health & Fitness,Quest Diagnostics,Debit,Checking ...4910
+2026-03-27 22:17:10,109.25,Purchase at Equinox,Health & Fitness,Equinox,Debit,Checking ...4910
+2026-03-27 22:40:14,21.12,Purchase at Starbucks,Dining,Starbucks,Debit,Checking ...4910
+2026-03-28 01:15:16,5.55,Purchase at Lyft,Transportation,Lyft,Debit,Sapphire ...9104
+2026-03-28 02:04:25,18.71,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Checking ...4910
+2026-03-28 03:50:33,24.96,Purchase at Amtrak,Transportation,Amtrak,Debit,Savings ...1029
+2026-03-28 11:00:00,1062.79,Late-night transaction - Chipotle,Dining,Chipotle,Debit,Savings ...1029
+2026-03-28 16:15:47,89.81,Purchase at AT&T,Utilities,AT&T,Debit,Checking ...4910
+2026-03-28 17:37:27,76.7,Purchase at Amazon,Shopping,Amazon,Debit,Checking ...4910
+2026-03-28 20:01:09,21.61,Purchase at MTA Metro,Transportation,MTA Metro,Debit,Sapphire ...9104
+2026-03-28 22:28:39,45.0,Purchase at National Grid Gas,Utilities,National Grid Gas,Debit,Savings ...1029
+2026-03-28 23:37:24,25.3,Purchase at Amtrak,Transportation,Amtrak,Debit,Savings ...1029
+2026-03-29 01:15:19,10.0,Purchase at Nintendo eShop,Entertainment,Nintendo eShop,Debit,Credit Card ...8832
+2026-03-29 03:48:21,10.0,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Sapphire ...9104
+2026-03-29 03:54:51,21.13,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Savings ...1029
+2026-03-29 04:51:58,64.48,Purchase at Ticketmaster,Entertainment,Ticketmaster,Debit,Credit Card ...8832
+2026-03-29 22:00:00,10000.0,External wire transfer - Spotify,Entertainment,Spotify,Wire,Sapphire ...9104
+2026-03-30 02:08:56,102.38,Purchase at Verizon Wireless,Utilities,Verizon Wireless,Debit,Credit Card ...8832
+2026-03-30 03:05:49,135.11,Purchase at City Water & Power,Utilities,City Water & Power,Debit,Savings ...1029
+2026-03-30 04:38:04,12.0,Purchase at Target,Shopping,Target,Debit,Sapphire ...9104
+2026-03-30 05:44:30,140.32,Purchase at Walgreens,Health & Fitness,Walgreens,Debit,Credit Card ...8832
+2026-03-30 17:52:54,93.21,Purchase at Planet Fitness,Health & Fitness,Planet Fitness,Debit,Sapphire ...9104
+2026-03-30 20:46:28,22.93,Purchase at Chipotle,Dining,Chipotle,Debit,Checking ...4910
+2026-03-30 21:45:19,18.75,Purchase at Olive Garden,Dining,Olive Garden,Debit,Sapphire ...9104
+2026-03-31 00:57:01,81.45,Purchase at City Water & Power,Utilities,City Water & Power,Debit,Checking ...4910
+2026-03-31 18:12:01,72.35,Purchase at ALDI,Groceries,ALDI,Debit,Sapphire ...9104
+2026-04-01 03:17:32,12.0,Purchase at Walmart,Shopping,Walmart,Debit,Sapphire ...9104
+2026-04-01 17:02:42,23.26,Purchase at Spotify,Entertainment,Spotify,Debit,Credit Card ...8832
+2026-04-01 17:35:34,83.75,Purchase at Walmart,Shopping,Walmart,Debit,Savings ...1029
+2026-04-01 17:36:06,13.64,Purchase at Sweetgreen,Dining,Sweetgreen,Debit,Credit Card ...8832
+2026-04-01 20:50:23,33.76,Purchase at Lyft,Transportation,Lyft,Debit,Credit Card ...8832
+2026-04-02 00:44:07,82.94,Purchase at AT&T,Utilities,AT&T,Debit,Savings ...1029
+2026-04-02 04:18:07,50.85,Purchase at Steam Games,Entertainment,Steam Games,Debit,Sapphire ...9104
+2026-04-02 05:13:39,23.6,Purchase at Shell Gas,Transportation,Shell Gas,Debit,Savings ...1029
+2026-04-02 06:28:39,85.61,Purchase at Target,Shopping,Target,Debit,Checking ...4910
