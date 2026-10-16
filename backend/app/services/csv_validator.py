@@ -104,14 +104,11 @@ def validate_csv(
 
     # ── Parse CSV ─────────────────────────────────────────────────────────
     try:
-        # Try UTF-8 first, then latin-1 as fallback
         try:
-            text = file_content.decode("utf-8")
+            df = pd.read_csv(io.BytesIO(file_content), encoding="utf-8", low_memory=False)
         except UnicodeDecodeError:
-            text = file_content.decode("latin-1")
+            df = pd.read_csv(io.BytesIO(file_content), encoding="latin-1", low_memory=False)
             warnings.append("File was decoded using latin-1 encoding (not UTF-8)")
-
-        df = pd.read_csv(io.StringIO(text))
     except Exception as e:
         return {
             "is_valid": False,
@@ -231,11 +228,9 @@ def process_csv_to_dataframe(
     Renames columns per the mapping, converts types, and cleans data.
     """
     try:
-        text = file_content.decode("utf-8")
+        df = pd.read_csv(io.BytesIO(file_content), encoding="utf-8", low_memory=False)
     except UnicodeDecodeError:
-        text = file_content.decode("latin-1")
-
-    df = pd.read_csv(io.StringIO(text))
+        df = pd.read_csv(io.BytesIO(file_content), encoding="latin-1", low_memory=False)
 
     # Remove completely empty rows
     df = df.dropna(how="all").reset_index(drop=True)

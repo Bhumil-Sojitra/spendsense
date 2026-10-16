@@ -76,39 +76,34 @@ class DataManager:
         self.datasets[dataset_id] = dataset
         self._raw_dataframes[dataset_id] = df.copy()
 
-        # Create transaction records
-        txns: list[TransactionRecord] = []
-        for idx, row in df.iterrows():
-            raw_data = {}
-            for col in df.columns:
-                val = row[col]
-                if pd.isna(val):
-                    raw_data[col] = None
-                elif isinstance(val, (pd.Timestamp, datetime)):
-                    raw_data[col] = str(val)
-                elif isinstance(val, (np.integer,)):
-                    raw_data[col] = int(val)
-                elif isinstance(val, (np.floating,)):
-                    raw_data[col] = float(val)
-                else:
-                    raw_data[col] = val
+        # Fast vectorized record generation
+        records = df.to_dict(orient="records")
+        is_large = len(df) > 50000
 
-            txn = TransactionRecord(
-                id=str(uuid.uuid4()),
+        txns: list[TransactionRecord] = [
+            TransactionRecord.model_construct(
+                id=f"tx_{idx}_{dataset_id[:8]}",
                 dataset_id=dataset_id,
-                row_index=int(idx),
-                date=str(row.get("date", "")) if pd.notna(row.get("date")) else None,
-                amount=float(row["amount"]) if pd.notna(row.get("amount")) else None,
-                description=str(row.get("description", "")) if row.get("description") else None,
-                category=str(row.get("category", "")) if row.get("category") else None,
-                merchant=str(row.get("merchant", "")) if row.get("merchant") else None,
-                transaction_type=str(row.get("transaction_type", "")) if row.get("transaction_type") else None,
-                account=str(row.get("account", "")) if row.get("account") else None,
-                raw_data=raw_data,
+                row_index=idx,
+                date=str(r["date"]) if r.get("date") is not None and not pd.isna(r["date"]) else None,
+                amount=float(r["amount"]) if r.get("amount") is not None and not pd.isna(r["amount"]) else None,
+                description=str(r["description"]) if r.get("description") and not pd.isna(r["description"]) else None,
+                category=str(r["category"]) if r.get("category") and not pd.isna(r["category"]) else None,
+                merchant=str(r["merchant"]) if r.get("merchant") and not pd.isna(r["merchant"]) else None,
+                transaction_type=str(r["transaction_type"]) if r.get("transaction_type") and not pd.isna(r["transaction_type"]) else None,
+                account=str(r["account"]) if r.get("account") and not pd.isna(r["account"]) else None,
+                anomaly_score=None,
+                is_anomaly=False,
+                review_status=ReviewStatus.PENDING,
+                review_note=None,
+                reviewed_at=None,
+                is_included=True,
+                raw_data=r if not is_large else None,
                 created_at=now,
                 updated_at=now,
             )
-            txns.append(txn)
+            for idx, r in enumerate(records)
+        ]
 
         self.transactions[dataset_id] = txns
         return dataset
