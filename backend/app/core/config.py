@@ -29,8 +29,8 @@ class Settings(BaseSettings):
     MIN_SAMPLES_FOR_ML: int = 10
 
     # Upload limits
-    MAX_FILE_SIZE_MB: int = 10
-    MAX_TRANSACTIONS: int = 50000
+    MAX_FILE_SIZE_MB: int = 500
+    MAX_TRANSACTIONS: int = 1000000
 
     @property
     def cors_origins_list(self) -> list[str]:

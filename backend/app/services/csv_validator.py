@@ -77,8 +77,8 @@ def auto_map_columns(csv_columns: list[str]) -> dict[str, str]:
 def validate_csv(
     file_content: bytes,
     file_name: str,
-    max_size_mb: int = 10,
-    max_rows: int = 50000,
+    max_size_mb: int = 500,
+    max_rows: int = 1000000,
     column_mapping: Optional[dict[str, str]] = None,
 ) -> dict:
     """Validate a CSV file and return validation results with preview data.
