@@ -18,7 +18,8 @@ import type {
   ReviewLogEntry,
 } from "@/types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const rawBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api").replace(/\/+$/, "");
+const API_BASE = rawBase.endsWith("/api") ? rawBase : `${rawBase}/api`;
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
