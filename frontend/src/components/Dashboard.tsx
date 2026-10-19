@@ -13,8 +13,16 @@ import {
   ShieldAlert,
   FileText,
   Layers,
+  Sparkles,
 } from "lucide-react";
-import { cn, formatCurrency, formatNumber, formatPercentage } from "@/lib/utils";
+import {
+  cn,
+  formatCurrency,
+  formatNumber,
+  formatPercentage,
+  formatCompactNumber,
+  cleanCategoryName,
+} from "@/lib/utils";
 import {
   BarChart,
   Bar,
@@ -131,24 +139,124 @@ function ChartCard({
   );
 }
 
-function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ name: string; value: number; color: string }>; label?: string }) {
-  if (!active || !payload) return null;
+function CustomTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: Array<{ name: string; value: number; color: string }>;
+  label?: string;
+}) {
+  if (!active || !payload || payload.length === 0) return null;
   return (
-    <div className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-3 shadow-xl">
-      <p className="text-xs font-medium text-[var(--muted-foreground)]">{label}</p>
-      {payload.map((entry, i) => (
-        <p key={i} className="text-sm font-semibold" style={{ color: entry.color }}>
-          {entry.name}: {typeof entry.value === 'number' && entry.name.toLowerCase().includes('amount')
-            ? formatCurrency(entry.value)
-            : formatNumber(entry.value)}
+    <div className="rounded-xl border border-slate-700 bg-[#111827] p-3 shadow-2xl text-xs z-50">
+      {label && (
+        <p className="mb-2 border-b border-slate-700/60 pb-1 text-xs font-semibold text-white">
+          {label}
         </p>
-      ))}
+      )}
+      <div className="space-y-1.5">
+        {payload.map((entry, i) => (
+          <div key={i} className="flex items-center justify-between gap-4 text-xs">
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.color }} />
+              {entry.name}
+            </span>
+            <span className="font-mono font-bold" style={{ color: entry.color }}>
+              {typeof entry.value === "number" && entry.name.toLowerCase().includes("amount")
+                ? formatCurrency(entry.value)
+                : formatNumber(entry.value)}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
+function formatRangeLabel(label: string): string {
+  if (!label) return "";
+  return label.replace(/\$([0-9,]+)/g, (_, match) => {
+    const num = parseFloat(match.replace(/,/g, ""));
+    if (isNaN(num)) return `$${match}`;
+    return `$${formatCompactNumber(num)}`;
+  });
+}
+
 export default function Dashboard() {
   const { dashboardData, dataset, analysisResult, currentDatasetId } = useApp();
+  const [hoveredCategory, setHoveredCategory] = React.useState<string | null>(null);
+
+  // Category breakdown: Group top 6 categories and combine others into "Other Categories"
+  const { topCategoriesData, totalCategoryAnomalies } = React.useMemo(() => {
+    if (!dashboardData?.category_breakdown) {
+      return { topCategoriesData: [], totalCategoryAnomalies: 0 };
+    }
+    const filtered = dashboardData.category_breakdown
+      .filter((c) => c.anomalies > 0)
+      .sort((a, b) => b.anomalies - a.anomalies);
+    const total = filtered.reduce((sum, c) => sum + c.anomalies, 0);
+
+    if (filtered.length <= 6) {
+      return { topCategoriesData: filtered, totalCategoryAnomalies: total };
+    }
+
+    const top5 = filtered.slice(0, 5);
+    const others = filtered.slice(5);
+    const otherAnomalies = others.reduce((sum, c) => sum + c.anomalies, 0);
+    const otherTotal = others.reduce((sum, c) => sum + c.total, 0);
+
+    return {
+      topCategoriesData: [
+        ...top5,
+        {
+          category: "Other Categories",
+          total: otherTotal,
+          anomalies: otherAnomalies,
+          anomaly_rate: otherTotal > 0 ? (otherAnomalies / otherTotal) * 100 : 0,
+        },
+      ],
+      totalCategoryAnomalies: total,
+    };
+  }, [dashboardData?.category_breakdown]);
+
+  // Time series: If > 60 daily points, aggregate into weekly intervals for smooth, clear trends
+  const formattedTimeSeries = React.useMemo(() => {
+    const raw = dashboardData?.time_series || [];
+    if (raw.length === 0) return [];
+
+    if (raw.length > 60) {
+      const weekly: Array<{ date: string; displayDate: string; count: number; anomaly_count: number }> = [];
+      const windowSize = 7;
+      for (let i = 0; i < raw.length; i += windowSize) {
+        const slice = raw.slice(i, i + windowSize);
+        const count = slice.reduce((sum, item) => sum + (item.count || 0), 0);
+        const anomaly_count = slice.reduce((sum, item) => sum + (item.anomaly_count || 0), 0);
+        const startDate = slice[0].date;
+        let displayDate = startDate;
+        try {
+          const d = new Date(startDate);
+          if (!isNaN(d.getTime())) {
+            displayDate = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+          }
+        } catch {}
+        weekly.push({ date: startDate, displayDate, count, anomaly_count });
+      }
+      return weekly;
+    }
+
+    return raw.map((item) => {
+      let displayDate = item.date;
+      try {
+        const d = new Date(item.date);
+        if (!isNaN(d.getTime())) {
+          displayDate = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+        }
+      } catch {}
+      return { ...item, displayDate };
+    });
+  }, [dashboardData?.time_series]);
 
   if (!currentDatasetId || !dataset) {
     return <EmptyDashboard />;
@@ -158,8 +266,7 @@ export default function Dashboard() {
     return <DashboardSkeleton />;
   }
 
-  const { metrics, amount_distribution, category_breakdown, time_series, recent_anomalies } =
-    dashboardData;
+  const { metrics, amount_distribution, recent_anomalies } = dashboardData;
 
   return (
     <div className="space-y-6">
@@ -232,85 +339,189 @@ export default function Dashboard() {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Amount Distribution */}
         {amount_distribution.length > 0 && (
           <ChartCard title="Amount Distribution">
+            <div className="mb-3 flex items-center justify-end gap-4 text-xs">
+              <span className="flex items-center gap-1.5 text-[var(--muted-foreground)]">
+                <span className="h-2.5 w-2.5 rounded-sm bg-[#6366f1]" />
+                Normal
+              </span>
+              <span className="flex items-center gap-1.5 text-[var(--muted-foreground)]">
+                <span className="h-2.5 w-2.5 rounded-sm bg-[#ef4444]" />
+                Anomalies
+              </span>
+            </div>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={amount_distribution}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.1)" />
+                <BarChart data={amount_distribution} margin={{ top: 10, right: 10, left: 0, bottom: 25 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.08)" vertical={false} />
                   <XAxis
                     dataKey="range_label"
                     tick={{ fill: "#94a3b8", fontSize: 10 }}
-                    angle={-30}
+                    tickFormatter={formatRangeLabel}
+                    angle={-20}
                     textAnchor="end"
-                    height={60}
+                    interval={0}
+                    height={40}
                   />
-                  <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="count" name="Normal" fill="#6366f1" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="anomaly_count" name="Anomalies" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                  <YAxis
+                    tick={{ fill: "#94a3b8", fontSize: 11 }}
+                    tickFormatter={(v) => formatCompactNumber(v)}
+                    width={45}
+                  />
+                  <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: "none" }} content={<CustomTooltip />} />
+                  <Bar dataKey="count" name="Normal" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={32} />
+                  <Bar dataKey="anomaly_count" name="Anomalies" fill="#ef4444" radius={[4, 4, 0, 0]} maxBarSize={32} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </ChartCard>
         )}
 
-        {/* Category Breakdown */}
-        {category_breakdown.length > 0 && (
+        {/* Category Breakdown (Clean Donut + Side Legend) */}
+        {topCategoriesData.length > 0 && (
           <ChartCard title="Anomalies by Category">
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={category_breakdown.filter(c => c.anomalies > 0)}
-                    dataKey="anomalies"
-                    nameKey="category"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    label={((entry: Record<string, unknown>) =>
-                      `${entry.name || entry.category || ""}: ${entry.value || entry.anomalies || 0}`) as any}
-                    labelLine={{ stroke: "#94a3b8" }}
-                  >
-                    {category_breakdown
-                      .filter(c => c.anomalies > 0)
-                      .map((_, i) => (
-                        <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+            <div className="flex flex-col sm:flex-row items-center gap-6 h-64">
+              <div className="relative h-56 w-56 shrink-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={topCategoriesData}
+                      dataKey="anomalies"
+                      nameKey="category"
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={88}
+                      paddingAngle={3}
+                      cornerRadius={4}
+                      stroke="#111827"
+                      strokeWidth={2}
+                    >
+                      {topCategoriesData.map((entry, i) => (
+                        <Cell
+                          key={i}
+                          fill={CHART_COLORS[i % CHART_COLORS.length]}
+                          onMouseEnter={() => setHoveredCategory(entry.category)}
+                          onMouseLeave={() => setHoveredCategory(null)}
+                        />
                       ))}
-                  </Pie>
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend
-                    wrapperStyle={{ fontSize: "11px", color: "#94a3b8" }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+                    </Pie>
+                    <Tooltip
+                      wrapperStyle={{ zIndex: 100, pointerEvents: "none" }}
+                      content={({ active, payload }) => {
+                        if (!active || !payload || payload.length === 0) return null;
+                        const data = payload[0].payload;
+                        const pct = totalCategoryAnomalies > 0 ? (data.anomalies / totalCategoryAnomalies) * 100 : 0;
+                        return (
+                          <div className="rounded-xl border border-slate-700 bg-[#111827] p-2.5 shadow-2xl text-xs z-50">
+                            <p className="font-semibold text-white">{cleanCategoryName(data.category)}</p>
+                            <p className="mt-1 text-slate-300">
+                              Flagged: <span className="font-mono font-bold text-red-400">{formatNumber(data.anomalies)}</span> ({pct.toFixed(1)}%)
+                            </p>
+                          </div>
+                        );
+                      }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div
+                  className={cn(
+                    "pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center transition-opacity duration-200",
+                    hoveredCategory ? "opacity-0" : "opacity-100"
+                  )}
+                >
+                  <span className="text-xl font-bold tracking-tight text-[var(--foreground)]">
+                    {formatCompactNumber(totalCategoryAnomalies)}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)]">
+                    Anomalies
+                  </span>
+                </div>
+              </div>
+
+              {/* Clean Legend list */}
+              <div className="flex-1 w-full space-y-1.5 overflow-y-auto max-h-56 pr-2">
+                {topCategoriesData.map((cat, idx) => {
+                  const pct = totalCategoryAnomalies > 0 ? (cat.anomalies / totalCategoryAnomalies) * 100 : 0;
+                  const color = CHART_COLORS[idx % CHART_COLORS.length];
+                  return (
+                    <div
+                      key={cat.category}
+                      className="flex items-center justify-between text-xs py-1.5 px-2.5 rounded-lg bg-[var(--secondary)]/40 hover:bg-[var(--secondary)] transition-colors"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: color }} />
+                        <span className="truncate font-medium text-[var(--foreground)]">
+                          {cleanCategoryName(cat.category)}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2.5 shrink-0 text-right">
+                        <span className="font-mono text-[var(--muted-foreground)]">
+                          {formatCompactNumber(cat.anomalies)}
+                        </span>
+                        <span className="w-12 font-mono font-semibold text-[var(--foreground)] text-right">
+                          {pct.toFixed(1)}%
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </ChartCard>
         )}
       </div>
 
-      {/* Time Series */}
-      {time_series.length > 0 && (
+      {/* Time Series (Smoothed & Clear) */}
+      {formattedTimeSeries.length > 0 && (
         <ChartCard title="Transaction Trends Over Time">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <span className="text-[var(--muted-foreground)]">
+              {dashboardData.time_series.length > 60
+                ? "Weekly aggregated volume & anomaly trends"
+                : "Daily volume & anomaly trends"}
+            </span>
+            <div className="flex items-center gap-4">
+              <span className="flex items-center gap-1.5 text-[var(--muted-foreground)]">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#6366f1]" />
+                Volume
+              </span>
+              <span className="flex items-center gap-1.5 text-[var(--muted-foreground)]">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ef4444]" />
+                Flagged Anomalies
+              </span>
+            </div>
+          </div>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={time_series}>
+              <AreaChart data={formattedTimeSeries} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
                 <defs>
                   <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
                   </linearGradient>
                   <linearGradient id="colorAnomaly" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.1)" />
-                <XAxis dataKey="date" tick={{ fill: "#94a3b8", fontSize: 10 }} />
-                <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} />
-                <Tooltip content={<CustomTooltip />} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.08)" vertical={false} />
+                <XAxis
+                  dataKey="displayDate"
+                  tick={{ fill: "#94a3b8", fontSize: 11 }}
+                  minTickGap={45}
+                  axisLine={{ stroke: "rgba(148,163,184,0.15)" }}
+                />
+                <YAxis
+                  tick={{ fill: "#94a3b8", fontSize: 11 }}
+                  tickFormatter={(v) => formatCompactNumber(v)}
+                  width={50}
+                  axisLine={{ stroke: "rgba(148,163,184,0.15)" }}
+                />
+                <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: "none" }} content={<CustomTooltip />} />
                 <Area
                   type="monotone"
                   dataKey="count"
@@ -318,6 +529,8 @@ export default function Dashboard() {
                   stroke="#6366f1"
                   fill="url(#colorCount)"
                   strokeWidth={2}
+                  dot={false}
+                  activeDot={{ r: 4, stroke: "#6366f1", strokeWidth: 2 }}
                 />
                 <Area
                   type="monotone"
@@ -326,6 +539,8 @@ export default function Dashboard() {
                   stroke="#ef4444"
                   fill="url(#colorAnomaly)"
                   strokeWidth={2}
+                  dot={false}
+                  activeDot={{ r: 4, stroke: "#ef4444", strokeWidth: 2 }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -344,6 +559,7 @@ export default function Dashboard() {
                   <th className="pb-3 pr-4">Amount</th>
                   <th className="pb-3 pr-4">Category</th>
                   <th className="pb-3 pr-4">Score</th>
+                  <th className="pb-3 pr-4">AI Risk Factor</th>
                   <th className="pb-3">Status</th>
                 </tr>
               </thead>
@@ -368,6 +584,19 @@ export default function Dashboard() {
                       )}>
                         {txn.anomaly_score !== null ? txn.anomaly_score.toFixed(3) : "—"}
                       </span>
+                    </td>
+                    <td className="py-3 pr-4">
+                      {txn.primary_reason ? (
+                        <span
+                          className="inline-flex items-center gap-1 rounded bg-rose-500/10 px-2 py-0.5 text-xs font-medium text-rose-300 border border-rose-500/20 max-w-[190px] truncate"
+                          title={txn.anomaly_reasons?.join(" • ") || txn.primary_reason}
+                        >
+                          <Sparkles className="h-3 w-3 text-rose-400 shrink-0" />
+                          <span className="truncate">{txn.primary_reason}</span>
+                        </span>
+                      ) : (
+                        <span className="text-xs text-[var(--muted-foreground)]">Statistical Outlier</span>
+                      )}
                     </td>
                     <td className="py-3">
                       <span className="inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-400">

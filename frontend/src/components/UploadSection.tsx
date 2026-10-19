@@ -16,13 +16,25 @@ import { validateDataset } from "@/lib/api";
 import type { DatasetValidationResult } from "@/types";
 
 export default function UploadSection() {
-  const { uploadFile, loadDemoData, loading, backendConnected } = useApp();
+  const {
+    uploadFile,
+    loadDemoData,
+    loading,
+    backendConnected,
+    isUploading,
+    isValidating,
+    setIsValidating,
+    uploadProgress,
+    uploadStatus,
+  } = useApp();
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [validating, setValidating] = useState(false);
   const [validation, setValidation] = useState<DatasetValidationResult | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const isBusy = validating || isValidating || loading || isUploading;
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -50,6 +62,7 @@ export default function UploadSection() {
 
     setSelectedFile(file);
     setValidating(true);
+    setIsValidating(true);
 
     try {
       const result = await validateDataset(file);
@@ -58,8 +71,9 @@ export default function UploadSection() {
       setUploadError(e instanceof Error ? e.message : "Validation failed");
     } finally {
       setValidating(false);
+      setIsValidating(false);
     }
-  }, []);
+  }, [setIsValidating]);
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
@@ -106,6 +120,7 @@ export default function UploadSection() {
         onDrop={handleDrop}
         className={cn(
           "relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-12 transition-all duration-300",
+          isBusy && "pointer-events-none opacity-40 cursor-not-allowed",
           dragActive
             ? "border-indigo-500 bg-indigo-500/5"
             : "border-[var(--border)] bg-[var(--card)] hover:border-indigo-500/50"
@@ -115,10 +130,11 @@ export default function UploadSection() {
           ref={fileInputRef}
           type="file"
           accept=".csv"
+          disabled={isBusy}
           onChange={(e) => {
             if (e.target.files?.[0]) handleFile(e.target.files[0]);
           }}
-          className="absolute inset-0 cursor-pointer opacity-0"
+          className="absolute inset-0 cursor-pointer opacity-0 disabled:cursor-not-allowed"
         />
         <div className="mb-4 rounded-xl bg-indigo-500/10 p-4">
           <Upload className="h-8 w-8 text-indigo-400" />
@@ -131,7 +147,7 @@ export default function UploadSection() {
         </p>
       </div>
 
-      {/* Demo Data button */}
+      {/* Demo Data button (Strictly disabled during validation & upload) */}
       <div className="flex items-center gap-4">
         <div className="h-px flex-1 bg-[var(--border)]" />
         <span className="text-xs text-[var(--muted-foreground)]">or</span>
@@ -139,10 +155,21 @@ export default function UploadSection() {
       </div>
       <button
         onClick={loadDemoData}
-        disabled={loading || !backendConnected}
-        className="w-full rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-5 py-3 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)] disabled:opacity-50"
+        disabled={isBusy || !backendConnected}
+        className={cn(
+          "w-full rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-5 py-3 text-sm font-medium transition-colors",
+          isBusy
+            ? "cursor-not-allowed opacity-25 pointer-events-none text-[var(--muted-foreground)]"
+            : "text-[var(--foreground)] hover:bg-[var(--muted)]"
+        )}
       >
-        {loading ? "Loading..." : "Load Demo Data (200 synthetic transactions)"}
+        {validating || isValidating
+          ? "Validating CSV file, demo disabled..."
+          : isUploading
+          ? "Upload in progress, demo disabled..."
+          : loading
+          ? "Loading demo data..."
+          : "Load Demo Data (200 synthetic transactions)"}
       </button>
 
       {/* Error */}
@@ -280,31 +307,65 @@ export default function UploadSection() {
             </div>
           )}
 
-          {/* Actions */}
-          <div className="flex gap-3">
-            <button
-              onClick={handleReset}
-              className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)]"
-            >
-              Cancel
-            </button>
-            {validation.is_valid && (
+          {/* Actions or In-Flight Progress Bar */}
+          {isUploading || (loading && selectedFile) ? (
+            <div className="rounded-xl border border-indigo-500/30 bg-gradient-to-br from-indigo-500/5 via-[var(--card)] to-purple-500/5 p-6 shadow-2xl space-y-4 animate-fade-in">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/20 text-indigo-400">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-[var(--foreground)] truncate max-w-[280px]">
+                      {selectedFile?.name || "Processing Dataset"}
+                    </h4>
+                    <p className="text-xs text-[var(--muted-foreground)]">
+                      {uploadStatus || "Ingesting transactions..."}
+                    </p>
+                  </div>
+                </div>
+                <span className="font-mono text-base font-bold text-indigo-400">
+                  {uploadProgress}%
+                </span>
+              </div>
+
+              {/* Progress Bar Track */}
+              <div className="h-3 w-full overflow-hidden rounded-full bg-[var(--secondary)] border border-[var(--border)] p-0.5">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 transition-all duration-300 shadow-md shadow-indigo-500/50"
+                  style={{ width: `${Math.max(5, uploadProgress)}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs text-[var(--muted-foreground)]">
+                <span>
+                  {validation?.valid_rows
+                    ? `${validation.valid_rows.toLocaleString()} rows being indexed`
+                    : "Parsing data"}
+                </span>
+                <span className="text-amber-400/80 font-medium">Navigation locked during upload</span>
+              </div>
+            </div>
+          ) : (
+            <div className="flex gap-3">
               <button
-                onClick={handleUpload}
-                disabled={loading}
-                className="rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50"
+                onClick={handleReset}
+                disabled={isBusy}
+                className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)] disabled:opacity-25 disabled:cursor-not-allowed pointer-events-auto disabled:pointer-events-none"
               >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Uploading...
-                  </span>
-                ) : (
-                  `Upload & Process ${validation.valid_rows} Transactions`
-                )}
+                Cancel
               </button>
-            )}
-          </div>
+              {validation.is_valid && (
+                <button
+                  onClick={handleUpload}
+                  disabled={isBusy}
+                  className="rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:from-indigo-600 hover:to-purple-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  Upload & Process {validation.valid_rows.toLocaleString()} Transactions
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

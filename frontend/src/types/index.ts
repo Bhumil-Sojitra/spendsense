@@ -52,6 +52,8 @@ export interface Transaction {
   account: string | null;
   anomaly_score: number | null;
   is_anomaly: boolean;
+  primary_reason?: string | null;
+  anomaly_reasons?: string[];
   review_status: ReviewStatus;
   review_note: string | null;
   reviewed_at: string | null;
@@ -172,6 +174,11 @@ export interface ReviewLogEntry {
   action: string;
   previous_status: string | null;
   new_status: string;
+  previous_included?: boolean | null;
+  new_included?: boolean | null;
+  transaction_description?: string | null;
+  transaction_amount?: number | null;
+  transaction_category?: string | null;
   note: string | null;
   created_at: string;
 }

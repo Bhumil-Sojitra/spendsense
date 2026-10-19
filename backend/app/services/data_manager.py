@@ -155,13 +155,17 @@ class DataManager:
         # Sorting
         if sort_by:
             reverse = sort_order == "desc"
+            def get_sort_key(t: TransactionRecord):
+                val = getattr(t, sort_by, None)
+                if val is None:
+                    return -1e18 if reverse else 1e18
+                if hasattr(val, "value"):
+                    return str(val.value)
+                return val
+
             try:
-                txns = sorted(
-                    txns,
-                    key=lambda t: getattr(t, sort_by, None) or "",
-                    reverse=reverse,
-                )
-            except (AttributeError, TypeError):
+                txns = sorted(txns, key=get_sort_key, reverse=reverse)
+            except Exception:
                 pass
 
         # Pagination
@@ -215,6 +219,11 @@ class DataManager:
                         action=", ".join(action_parts),
                         previous_status=old_status,
                         new_status=review_status.value if review_status else old_status,
+                        previous_included=old_included,
+                        new_included=t.is_included,
+                        transaction_description=t.description or t.merchant or "Transaction",
+                        transaction_amount=t.amount,
+                        transaction_category=t.category,
                         note=review_note,
                         created_at=now,
                     )
@@ -250,6 +259,8 @@ class DataManager:
         scores: list[float],
         anomaly_flags: list[bool],
         analysis_result: AnalysisResult,
+        reasons: Optional[list[list[str]]] = None,
+        primary_reasons: Optional[list[Optional[str]]] = None,
     ):
         """Apply ML results to transactions and store analysis."""
         txns = self.transactions.get(dataset_id, [])
@@ -257,6 +268,10 @@ class DataManager:
             if i < len(scores):
                 txn.anomaly_score = float(scores[i])
                 txn.is_anomaly = bool(anomaly_flags[i])
+                if reasons and i < len(reasons):
+                    txn.anomaly_reasons = reasons[i]
+                if primary_reasons and i < len(primary_reasons):
+                    txn.primary_reason = primary_reasons[i]
                 txn.updated_at = datetime.now(timezone.utc)
 
         self.analysis_results[analysis_result.id] = analysis_result
@@ -277,8 +292,17 @@ class DataManager:
     ) -> list[ReviewLogEntry]:
         logs = self.review_logs
         if dataset_id:
-            txn_ids = {t.id for t in self.transactions.get(dataset_id, [])}
-            logs = [l for l in logs if l.transaction_id in txn_ids]
+            txn_map = {t.id: t for t in self.transactions.get(dataset_id, [])}
+            logs = [l for l in logs if l.transaction_id in txn_map]
+            for l in logs:
+                if (not l.transaction_description or l.transaction_amount is None) and l.transaction_id in txn_map:
+                    t = txn_map[l.transaction_id]
+                    if not l.transaction_description:
+                        l.transaction_description = t.description or t.merchant or "Transaction"
+                    if l.transaction_amount is None:
+                        l.transaction_amount = t.amount
+                    if l.transaction_category is None:
+                        l.transaction_category = t.category
         return sorted(logs, key=lambda l: l.created_at, reverse=True)[:limit]
 
     # ─── Dashboard metrics ───────────────────────────────────────────────
@@ -451,6 +475,8 @@ class DataManager:
                 "transaction_type": t.transaction_type,
                 "anomaly_score": round(t.anomaly_score, 4) if t.anomaly_score is not None else None,
                 "is_anomaly": t.is_anomaly,
+                "primary_reason": getattr(t, "primary_reason", None),
+                "anomaly_reasons": "; ".join(getattr(t, "anomaly_reasons", [])) if getattr(t, "anomaly_reasons", []) else None,
                 "review_status": t.review_status.value,
                 "review_note": t.review_note,
                 "is_included": t.is_included,
@@ -466,6 +492,11 @@ class DataManager:
                 "id": l.id,
                 "transaction_id": l.transaction_id,
                 "action": l.action,
+                "transaction_description": l.transaction_description,
+                "transaction_amount": l.transaction_amount,
+                "transaction_category": l.transaction_category,
+                "previous_included": l.previous_included,
+                "new_included": l.new_included,
                 "previous_status": l.previous_status,
                 "new_status": l.new_status,
                 "note": l.note,

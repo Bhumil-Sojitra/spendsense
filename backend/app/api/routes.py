@@ -203,6 +203,9 @@ async def run_analysis(request: AnalysisRequest):
         scores, anomaly_flags, model_info = detector.detect(
             df, method=request.method.value
         )
+        reasons, primary_reasons = detector.explain_anomalies(
+            df, scores, anomaly_flags
+        )
 
         completed_at = datetime.now(timezone.utc)
 
@@ -225,12 +228,14 @@ async def run_analysis(request: AnalysisRequest):
             completed_at=completed_at,
         )
 
-        # Apply results to transaction records
+        # Apply results to transaction records with Explainable AI reasons
         data_manager.apply_analysis_results(
             dataset_id=request.dataset_id,
             scores=scores.tolist(),
             anomaly_flags=anomaly_flags.tolist(),
             analysis_result=result,
+            reasons=reasons,
+            primary_reasons=primary_reasons,
         )
 
         return result

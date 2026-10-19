@@ -41,6 +41,8 @@ htmlcov/
 # Logs
 *.log
 
-# Temporary files
+# Temporary files & assets
 tmp/
 temp/
+.temp/
+scripts/report_assets/

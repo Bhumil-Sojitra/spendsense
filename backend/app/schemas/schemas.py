@@ -50,6 +50,8 @@ class TransactionRecord(TransactionBase):
     # ML prediction (set by the model, not user-editable)
     anomaly_score: Optional[float] = None
     is_anomaly: bool = False
+    primary_reason: Optional[str] = None
+    anomaly_reasons: list[str] = []
 
     # User review state (independent of ML prediction)
     review_status: ReviewStatus = ReviewStatus.PENDING
@@ -206,6 +208,11 @@ class ReviewLogEntry(BaseModel):
     action: str
     previous_status: Optional[str] = None
     new_status: str
+    previous_included: Optional[bool] = None
+    new_included: Optional[bool] = None
+    transaction_description: Optional[str] = None
+    transaction_amount: Optional[float] = None
+    transaction_category: Optional[str] = None
     note: Optional[str] = None
     created_at: datetime
 

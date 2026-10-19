@@ -36,8 +36,13 @@ interface AppState {
   analysisRunning: boolean;
   error: string | null;
   activeTab: string;
+  isUploading: boolean;
+  isValidating: boolean;
+  uploadProgress: number;
+  uploadStatus: string | null;
 
   // Actions
+  setIsValidating: (v: boolean) => void;
   setActiveTab: (tab: string) => void;
   checkBackend: () => Promise<void>;
   loadDemoData: () => Promise<void>;
@@ -73,6 +78,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [analysisRunning, setAnalysisRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [isUploading, setIsUploading] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
   const checkBackend = useCallback(async () => {
     try {
@@ -84,27 +93,54 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const handleDatasetNotFound = useCallback(() => {
+    setCurrentDatasetId(null);
+    setDataset(null);
+    setAnalysisResult(null);
+    setDashboardData(null);
+    setTransactions(null);
+    setReviewLogs([]);
+    setError("The active dataset is no longer available on the server (server reloaded). Please upload a file or load demo data.");
+  }, []);
+
   const refreshDashboard = useCallback(async () => {
     if (!currentDatasetId) return;
     try {
       const data = await api.getDashboard(currentDatasetId);
       setDashboardData(data);
     } catch (e) {
-      console.error("Failed to refresh dashboard:", e);
+      if (e instanceof api.ApiError && (e.status === 404 || e.message?.toLowerCase().includes("dataset not found"))) {
+        handleDatasetNotFound();
+        return;
+      }
+      console.warn("Failed to refresh dashboard:", e);
     }
-  }, [currentDatasetId]);
+  }, [currentDatasetId, handleDatasetNotFound]);
+
+  const lastTxnParamsRef = React.useRef<Record<string, unknown>>({});
 
   const refreshTransactions = useCallback(
     async (params?: Record<string, unknown>) => {
       if (!currentDatasetId) return;
+      if (params) {
+        lastTxnParamsRef.current = params;
+      }
       try {
-        const data = await api.getTransactions(currentDatasetId, params as Record<string, string | number | boolean | undefined>);
+        const queryParams = params || lastTxnParamsRef.current;
+        const data = await api.getTransactions(
+          currentDatasetId,
+          queryParams as Record<string, string | number | boolean | undefined>
+        );
         setTransactions(data);
       } catch (e) {
-        console.error("Failed to refresh transactions:", e);
+        if (e instanceof api.ApiError && (e.status === 404 || e.message?.toLowerCase().includes("dataset not found"))) {
+          handleDatasetNotFound();
+          return;
+        }
+        console.warn("Failed to refresh transactions:", e);
       }
     },
-    [currentDatasetId]
+    [currentDatasetId, handleDatasetNotFound]
   );
 
   const refreshReviewLogs = useCallback(async () => {
@@ -113,9 +149,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const data = await api.getReviewLogs(currentDatasetId);
       setReviewLogs(data.logs);
     } catch (e) {
-      console.error("Failed to refresh review logs:", e);
+      if (e instanceof api.ApiError && (e.status === 404 || e.message?.toLowerCase().includes("dataset not found"))) {
+        handleDatasetNotFound();
+        return;
+      }
+      console.warn("Failed to refresh review logs:", e);
     }
-  }, [currentDatasetId]);
+  }, [currentDatasetId, handleDatasetNotFound]);
 
   const loadDemoData = useCallback(async () => {
     setLoading(true);
@@ -136,18 +176,84 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const uploadFile = useCallback(async (file: File) => {
     setLoading(true);
+    setIsUploading(true);
+    setUploadProgress(0);
+    setUploadStatus("Starting upload...");
     setError(null);
+
+    let processingInterval: ReturnType<typeof setInterval> | null = null;
+
     try {
-      const res = await api.uploadDataset(file);
+      const res = await api.uploadDatasetWithProgress(file, (percent, loaded, total) => {
+        const loadedMB = (loaded / (1024 * 1024)).toFixed(1);
+        const totalMB = (total / (1024 * 1024)).toFixed(1);
+
+        if (percent < 100) {
+          // Map file transmission to 0% - 70%
+          const mappedProgress = Math.min(70, Math.round(percent * 0.7));
+          setUploadProgress(mappedProgress);
+          setUploadStatus(`Uploading file... ${loadedMB} MB of ${totalMB} MB (${percent}%)`);
+        } else {
+          // Transmission is 100% complete! Switch to server processing progression
+          if (!processingInterval) {
+            setUploadProgress(74);
+            setUploadStatus("Upload complete. Processing & indexing transactions in memory...");
+
+            let currentProgress = 74;
+            const stages = [
+              "Parsing CSV data into high-speed memory buffers...",
+              "Mapping transaction columns & validating schema...",
+              "Indexing transactions & computing distributions...",
+              "Building in-memory search indexes...",
+              "Finalizing dataset metrics and summary...",
+            ];
+            let stageIndex = 0;
+
+            processingInterval = setInterval(() => {
+              currentProgress = Math.min(95, currentProgress + 3);
+              setUploadProgress(currentProgress);
+              if (stageIndex < stages.length) {
+                setUploadStatus(stages[stageIndex]);
+                stageIndex++;
+              }
+            }, 1000);
+          }
+        }
+      });
+
+      if (processingInterval) {
+        clearInterval(processingInterval);
+        processingInterval = null;
+      }
+
+      setUploadProgress(98);
+      setUploadStatus("Loading dataset into dashboard...");
+
       const datasetId = res.data?.dataset_id as string;
       setCurrentDatasetId(datasetId);
       const ds = await api.getDataset(datasetId);
       setDataset(ds);
+
+      setUploadProgress(100);
+      setUploadStatus(`✓ Ingestion complete! ${ds.total_rows.toLocaleString()} transactions loaded.`);
+
+      // Brief transition delay so user sees 100% completion
+      await new Promise((resolve) => setTimeout(resolve, 600));
+
       setActiveTab("dashboard");
     } catch (e) {
+      if (processingInterval) {
+        clearInterval(processingInterval);
+      }
       setError(e instanceof Error ? e.message : "Failed to upload file");
     } finally {
+      if (processingInterval) {
+        clearInterval(processingInterval);
+      }
       setLoading(false);
+      setIsUploading(false);
+      setUploadProgress(0);
+      setUploadStatus(null);
     }
   }, []);
 
@@ -164,12 +270,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
         });
         setAnalysisResult(result);
       } catch (e) {
+        if (e instanceof api.ApiError && (e.status === 404 || e.message?.toLowerCase().includes("dataset not found"))) {
+          handleDatasetNotFound();
+          return;
+        }
         setError(e instanceof Error ? e.message : "Analysis failed");
       } finally {
         setAnalysisRunning(false);
       }
     },
-    [currentDatasetId]
+    [currentDatasetId, handleDatasetNotFound]
   );
 
   const updateTransaction = useCallback(
@@ -180,10 +290,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // Refresh both dashboard and transactions to reflect the change
         await Promise.all([refreshDashboard(), refreshTransactions(), refreshReviewLogs()]);
       } catch (e) {
+        if (e instanceof api.ApiError && (e.status === 404 || e.message?.toLowerCase().includes("dataset not found"))) {
+          handleDatasetNotFound();
+          return;
+        }
         setError(e instanceof Error ? e.message : "Failed to update transaction");
       }
     },
-    [currentDatasetId, refreshDashboard, refreshTransactions, refreshReviewLogs]
+    [currentDatasetId, refreshDashboard, refreshTransactions, refreshReviewLogs, handleDatasetNotFound]
   );
 
   // Auto-refresh dashboard when dataset or analysis changes
@@ -215,6 +329,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
         analysisRunning,
         error,
         activeTab,
+        isUploading,
+        isValidating,
+        setIsValidating,
+        uploadProgress,
+        uploadStatus,
         setActiveTab,
         checkBackend,
         loadDemoData,

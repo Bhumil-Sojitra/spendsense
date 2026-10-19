@@ -12,6 +12,7 @@ import {
   type SortingState,
 } from "@tanstack/react-table";
 import { useApp } from "@/context/AppContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   ArrowUpDown,
   Search,
@@ -24,15 +25,19 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Shield,
   ShieldAlert,
   ShieldCheck,
   ShieldX,
+  Sparkles,
 } from "lucide-react";
 import {
   cn,
   formatCurrency,
   formatDate,
+  formatNumber,
   getAnomalyScoreColor,
   getReviewStatusLabel,
   getReviewStatusColor,
@@ -40,56 +45,150 @@ import {
 import type { Transaction } from "@/types";
 import { ReviewStatus } from "@/types";
 
+function getPaginationItems(currentPage: number, totalPages: number): (number | "...")[] {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  if (currentPage <= 4) {
+    return [1, 2, 3, 4, 5, "...", totalPages];
+  }
+  if (currentPage >= totalPages - 3) {
+    return [
+      1,
+      "...",
+      totalPages - 4,
+      totalPages - 3,
+      totalPages - 2,
+      totalPages - 1,
+      totalPages,
+    ];
+  }
+  return [
+    1,
+    "...",
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    "...",
+    totalPages,
+  ];
+}
+
 interface TransactionTableProps {
   showExcluded?: boolean;
 }
 
 export default function TransactionTable({ showExcluded = false }: TransactionTableProps) {
   const { transactions, currentDatasetId, updateTransaction, refreshTransactions } = useApp();
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const { profile, isGuest } = useAuth();
+  const isViewer = profile?.role === "viewer";
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
+  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState("");
   const [anomalyFilter, setAnomalyFilter] = useState<string>("all");
   const [reviewFilter, setReviewFilter] = useState<string>("all");
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [jumpPageInput, setJumpPageInput] = useState("");
   const [detailTxn, setDetailTxn] = useState<Transaction | null>(null);
 
+  // Debounce search input
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearch(searchInput);
+      setPage(1);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  // Fetch paginated transactions from backend
+  React.useEffect(() => {
+    if (!currentDatasetId) return;
+
+    const sortBy = sorting[0]?.id;
+    const sortOrder = sorting[0]?.desc ? "desc" : "asc";
+
+    refreshTransactions({
+      page,
+      page_size: pageSize,
+      is_anomaly: anomalyFilter === "all" ? undefined : anomalyFilter === "anomaly",
+      is_included: !showExcluded,
+      review_status: reviewFilter === "all" ? undefined : reviewFilter,
+      search: search.trim() ? search.trim() : undefined,
+      sort_by: sortBy,
+      sort_order: sortOrder,
+    });
+  }, [
+    currentDatasetId,
+    page,
+    pageSize,
+    search,
+    anomalyFilter,
+    reviewFilter,
+    showExcluded,
+    sorting,
+    refreshTransactions,
+  ]);
+
+  const total = transactions?.total ?? 0;
+  const totalPages = Math.max(1, transactions?.total_pages ?? Math.ceil(total / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const startRow = total === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const endRow = Math.min(currentPage * pageSize, total);
+  const paginationItems = useMemo(
+    () => getPaginationItems(currentPage, totalPages),
+    [currentPage, totalPages]
+  );
+
   const data = useMemo(() => {
-    if (!transactions?.items) return [];
-    let filtered = transactions.items;
-    if (showExcluded) {
-      filtered = filtered.filter((t) => !t.is_included);
-    } else {
-      filtered = filtered.filter((t) => t.is_included);
-    }
-    if (anomalyFilter === "anomaly") {
-      filtered = filtered.filter((t) => t.is_anomaly);
-    } else if (anomalyFilter === "normal") {
-      filtered = filtered.filter((t) => !t.is_anomaly);
-    }
-    if (reviewFilter !== "all") {
-      filtered = filtered.filter((t) => t.review_status === reviewFilter);
-    }
-    return filtered;
-  }, [transactions, showExcluded, anomalyFilter, reviewFilter]);
+    return transactions?.items || [];
+  }, [transactions?.items]);
+
+  const getReviewerTag = useCallback(() => {
+    if (isGuest) return "Guest Auditor";
+    return `${profile?.display_name || "Auditor"} (${profile?.role || "analyst"})`;
+  }, [isGuest, profile]);
 
   const handleExclude = useCallback(
     async (txn: Transaction) => {
-      await updateTransaction(txn.id, { is_included: false });
+      if (isViewer) {
+        alert("Viewer role is read-only. Switch to Analyst or Admin to exclude transactions.");
+        return;
+      }
+      await updateTransaction(txn.id, {
+        is_included: false,
+        review_note: `Excluded by ${getReviewerTag()}`,
+      });
     },
-    [updateTransaction]
+    [updateTransaction, isViewer, getReviewerTag]
   );
 
   const handleRestore = useCallback(
     async (txn: Transaction) => {
-      await updateTransaction(txn.id, { is_included: true });
+      if (isViewer) {
+        alert("Viewer role is read-only. Switch to Analyst or Admin to restore transactions.");
+        return;
+      }
+      await updateTransaction(txn.id, {
+        is_included: true,
+        review_note: `Restored by ${getReviewerTag()}`,
+      });
     },
-    [updateTransaction]
+    [updateTransaction, isViewer, getReviewerTag]
   );
 
   const handleReview = useCallback(
     async (txn: Transaction, status: ReviewStatus) => {
-      await updateTransaction(txn.id, { review_status: status });
+      if (isViewer) {
+        alert("Viewer role is read-only. Switch to Analyst or Admin to review transactions.");
+        return;
+      }
+      await updateTransaction(txn.id, {
+        review_status: status,
+        review_note: `Reviewed by ${getReviewerTag()}`,
+      });
     },
-    [updateTransaction]
+    [updateTransaction, isViewer, getReviewerTag]
   );
 
   const columns: ColumnDef<Transaction>[] = useMemo(
@@ -155,6 +254,33 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
           );
         },
         size: 70,
+      },
+      {
+        accessorKey: "primary_reason",
+        header: "AI Insights",
+        cell: ({ row }) => {
+          const txn = row.original;
+          if (txn.is_anomaly || txn.primary_reason) {
+            return (
+              <button
+                onClick={() => setDetailTxn(txn)}
+                className="group flex items-center gap-1.5 text-left rounded-md bg-rose-500/10 hover:bg-rose-500/20 px-2 py-1 border border-rose-500/20 transition-all max-w-[190px]"
+                title={txn.anomaly_reasons?.join(" • ") || txn.primary_reason || "Flagged by ML model"}
+              >
+                <Sparkles className="h-3 w-3 text-rose-400 shrink-0" />
+                <span className="truncate text-xs font-medium text-rose-300">
+                  {txn.primary_reason || "Anomaly Outlier"}
+                </span>
+              </button>
+            );
+          }
+          return (
+            <span className="text-xs text-[var(--muted-foreground)] opacity-60">
+              Typical pattern
+            </span>
+          );
+        },
+        size: 160,
       },
       {
         accessorKey: "is_anomaly",
@@ -233,14 +359,15 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
   const table = useReactTable({
     data,
     columns,
-    state: { sorting, globalFilter },
-    onSortingChange: setSorting,
-    onGlobalFilterChange: setGlobalFilter,
+    state: { sorting },
+    onSortingChange: (updater) => {
+      setSorting(updater);
+      setPage(1);
+    },
+    manualSorting: true,
+    manualPagination: true,
+    pageCount: totalPages,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: { pagination: { pageSize: 20 } },
   });
 
   if (!currentDatasetId) {
@@ -261,7 +388,7 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
             {showExcluded ? "Excluded Transactions" : "Transactions"}
           </h2>
           <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-            {data.length} {showExcluded ? "excluded" : ""} transactions
+            {formatNumber(total)} {showExcluded ? "excluded" : ""} transactions found
           </p>
         </div>
       </div>
@@ -272,15 +399,18 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted-foreground)]" />
           <input
             type="text"
-            placeholder="Search transactions..."
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search description, merchant, or category..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             className="w-full rounded-lg border border-[var(--border)] bg-[var(--card)] py-2 pl-10 pr-4 text-sm text-[var(--foreground)] placeholder-[var(--muted-foreground)] outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25"
           />
         </div>
         <select
           value={anomalyFilter}
-          onChange={(e) => setAnomalyFilter(e.target.value)}
+          onChange={(e) => {
+            setAnomalyFilter(e.target.value);
+            setPage(1);
+          }}
           className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm text-[var(--foreground)] outline-none"
         >
           <option value="all">All Flags</option>
@@ -289,7 +419,10 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
         </select>
         <select
           value={reviewFilter}
-          onChange={(e) => setReviewFilter(e.target.value)}
+          onChange={(e) => {
+            setReviewFilter(e.target.value);
+            setPage(1);
+          }}
           className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm text-[var(--foreground)] outline-none"
         >
           <option value="all">All Reviews</option>
@@ -357,27 +490,123 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
         </table>
       </div>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-between text-sm text-[var(--muted-foreground)]">
-        <span>
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount() || 1} ({data.length} rows)
-        </span>
-        <div className="flex items-center gap-2">
+      {/* Numbered Pagination (1, 2, 3, 4, 5 ... n) */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-2 text-sm text-[var(--muted-foreground)]">
+        <div className="flex items-center gap-3">
+          <span>
+            Showing <span className="font-semibold text-[var(--foreground)]">{formatNumber(startRow)}</span> to{" "}
+            <span className="font-semibold text-[var(--foreground)]">{formatNumber(endRow)}</span> of{" "}
+            <span className="font-semibold text-[var(--foreground)]">{formatNumber(total)}</span>
+          </span>
+          <div className="flex items-center gap-1.5 pl-2 border-l border-[var(--border)]">
+            <span className="text-xs">Per page:</span>
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setPage(1);
+              }}
+              className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-2 py-1 text-xs text-[var(--foreground)] outline-none"
+            >
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={200}>200</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5">
+          {/* First & Prev */}
           <button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="rounded-lg border border-[var(--border)] p-2 transition-colors hover:bg-[var(--secondary)] disabled:opacity-30"
+            onClick={() => setPage(1)}
+            disabled={currentPage <= 1}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            title="First page"
+          >
+            <ChevronsLeft className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage <= 1}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            title="Previous page"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
+
+          {/* Number buttons: 1, 2, 3, 4, 5 ... n */}
+          {paginationItems.map((item, idx) => {
+            if (item === "...") {
+              return (
+                <span
+                  key={`ellipsis-${idx}`}
+                  className="flex h-8 w-8 items-center justify-center text-xs text-[var(--muted-foreground)] select-none"
+                >
+                  ...
+                </span>
+              );
+            }
+            const isCurrent = item === currentPage;
+            return (
+              <button
+                key={item}
+                onClick={() => setPage(item)}
+                className={cn(
+                  "flex h-8 min-w-[32px] items-center justify-center rounded-lg px-2 text-xs font-semibold transition-all",
+                  isCurrent
+                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25 border border-indigo-500"
+                    : "border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--secondary)] text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                )}
+              >
+                {item}
+              </button>
+            );
+          })}
+
+          {/* Next & Last */}
           <button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="rounded-lg border border-[var(--border)] p-2 transition-colors hover:bg-[var(--secondary)] disabled:opacity-30"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage >= totalPages}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            title="Next page"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
+          <button
+            onClick={() => setPage(totalPages)}
+            disabled={currentPage >= totalPages}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            title="Last page"
+          >
+            <ChevronsRight className="h-4 w-4" />
+          </button>
+
+          {/* Jump to page */}
+          {totalPages > 5 && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const target = parseInt(jumpPageInput, 10);
+                if (!isNaN(target) && target >= 1 && target <= totalPages) {
+                  setPage(target);
+                  setJumpPageInput("");
+                }
+              }}
+              className="ml-2 flex items-center gap-1.5"
+            >
+              <span className="text-xs text-[var(--muted-foreground)]">Go to:</span>
+              <input
+                type="number"
+                min={1}
+                max={totalPages}
+                placeholder={String(currentPage)}
+                value={jumpPageInput}
+                onChange={(e) => setJumpPageInput(e.target.value)}
+                className="h-8 w-14 rounded-lg border border-[var(--border)] bg-[var(--card)] px-1.5 text-center text-xs text-[var(--foreground)] outline-none"
+              />
+            </form>
+          )}
         </div>
       </div>
 
@@ -519,6 +748,26 @@ function TransactionDetailModal({
               value={txn.is_included ? "Yes" : "Excluded"}
             />
           </div>
+
+          {/* Explainable AI (XAI) Risk Factors */}
+          {txn.anomaly_reasons && txn.anomaly_reasons.length > 0 && (
+            <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-3.5 mt-3 animate-fade-in">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="h-4 w-4 text-rose-400" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-rose-300">
+                  Explainable AI (XAI) Risk Factors
+                </h4>
+              </div>
+              <ul className="space-y-1.5 text-xs text-rose-200/90 pl-1">
+                {txn.anomaly_reasons.map((reason, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-rose-400 font-bold">•</span>
+                    <span>{reason}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* Actions */}

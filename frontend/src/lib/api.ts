@@ -20,7 +20,7 @@ import type {
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
-class ApiError extends Error {
+export class ApiError extends Error {
   constructor(public status: number, message: string) {
     super(message);
     this.name = "ApiError";
@@ -87,6 +87,53 @@ export async function uploadDataset(file: File): Promise<ApiResponse> {
   return request<ApiResponse>("/datasets/upload", {
     method: "POST",
     body: form,
+  });
+}
+
+export function uploadDatasetWithProgress(
+  file: File,
+  onProgress?: (percent: number, loaded: number, total: number) => void
+): Promise<ApiResponse> {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    const form = new FormData();
+    form.append("file", file);
+
+    xhr.upload.addEventListener("progress", (event) => {
+      if (event.lengthComputable) {
+        const percent = Math.round((event.loaded / event.total) * 100);
+        onProgress?.(percent, event.loaded, event.total);
+      }
+    });
+
+    xhr.addEventListener("load", () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          const response = JSON.parse(xhr.responseText);
+          resolve(response);
+        } catch {
+          resolve({ success: true, message: "Upload complete" });
+        }
+      } else {
+        let errorMsg = `Upload failed with status ${xhr.status}`;
+        try {
+          const response = JSON.parse(xhr.responseText);
+          errorMsg = response.detail || response.message || errorMsg;
+        } catch {}
+        reject(new Error(errorMsg));
+      }
+    });
+
+    xhr.addEventListener("error", () => {
+      reject(new Error("Network connection error during file upload"));
+    });
+
+    xhr.addEventListener("abort", () => {
+      reject(new Error("File upload was cancelled"));
+    });
+
+    xhr.open("POST", `${API_BASE}/datasets/upload`);
+    xhr.send(form);
   });
 }
 

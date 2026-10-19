@@ -1,15 +1,18 @@
 "use client";
 
 import React from "react";
+import { AuthProvider } from "@/context/AuthContext";
 import { AppProvider, useApp } from "@/context/AppContext";
 import Sidebar from "@/components/Sidebar";
+import UserHeader from "@/components/UserHeader";
+import AuthModal from "@/components/AuthModal";
 import Dashboard from "@/components/Dashboard";
 import UploadSection from "@/components/UploadSection";
 import AnalysisSection from "@/components/AnalysisSection";
 import TransactionTable from "@/components/TransactionTable";
 import ReviewHistory from "@/components/ReviewHistory";
 import ExportsSection from "@/components/ExportsSection";
-import { AlertCircle, X } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 function AppContent() {
   const { activeTab, error } = useApp();
@@ -39,6 +42,9 @@ function AppContent() {
     <div className="flex min-h-screen">
       <Sidebar />
       <main className="ml-64 flex-1 p-6 lg:p-8">
+        {/* Top Header with Role & Workspace context */}
+        <UserHeader />
+
         {/* Global error banner */}
         {error && (
           <div className="mb-6 flex items-center gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400 animate-fade-in">
@@ -46,7 +52,11 @@ function AppContent() {
             <span className="flex-1">{error}</span>
           </div>
         )}
+
         {renderContent()}
+
+        {/* Auth Modal (Sign In / Register / Role switch) */}
+        <AuthModal />
       </main>
     </div>
   );
@@ -54,8 +64,10 @@ function AppContent() {
 
 export default function Home() {
   return (
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
+    </AuthProvider>
   );
 }
