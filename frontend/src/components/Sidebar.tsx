@@ -11,6 +11,7 @@ import {
   AlertTriangle,
   Loader2,
   LogOut,
+  X,
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { useAuth } from "@/context/AuthContext";
@@ -30,6 +31,8 @@ export default function Sidebar() {
   const {
     activeTab,
     setActiveTab,
+    sidebarOpen,
+    setSidebarOpen,
     backendConnected,
     demoMode,
     dataset,
@@ -44,19 +47,45 @@ export default function Sidebar() {
   const isLocked = loading || isUploading || isValidating;
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-[var(--border)] bg-[var(--sidebar-bg)]">
-      {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-[var(--border)] px-5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
-          <Activity className="h-5 w-5 text-white" />
+    <>
+      {/* Mobile Backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={cn(
+          "fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-[var(--border)] bg-[var(--sidebar-bg)] transition-transform duration-300 ease-in-out lg:translate-x-0 lg:z-40",
+          sidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+        )}
+      >
+        {/* Logo & Mobile Close */}
+        <div className="flex h-16 items-center justify-between border-b border-[var(--border)] px-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 shadow-md shadow-indigo-500/20">
+              <Activity className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-base font-bold gradient-text">SpendSense AI</h1>
+              <p className="text-[10px] font-medium text-[var(--muted-foreground)]">
+                Anomaly Detection
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(false)}
+            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors lg:hidden"
+            aria-label="Close navigation"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
-        <div>
-          <h1 className="text-base font-bold gradient-text">SpendSense AI</h1>
-          <p className="text-[10px] font-medium text-[var(--muted-foreground)]">
-            Anomaly Detection
-          </p>
-        </div>
-      </div>
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
@@ -83,7 +112,12 @@ export default function Sidebar() {
           return (
             <button
               key={item.id}
-              onClick={() => !isDisabled && setActiveTab(item.id)}
+              onClick={() => {
+                if (!isDisabled) {
+                  setActiveTab(item.id);
+                  setSidebarOpen(false);
+                }
+              }}
               disabled={isDisabled}
               className={cn(
                 "group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
@@ -119,7 +153,10 @@ export default function Sidebar() {
               <p className="text-[9px] text-[var(--muted-foreground)] truncate">All tools unlocked</p>
             </div>
             <button
-              onClick={() => openAuthModal("signin")}
+              onClick={() => {
+                openAuthModal("signin");
+                setSidebarOpen(false);
+              }}
               className="rounded-md bg-indigo-600/80 hover:bg-indigo-600 px-2 py-1 text-[10px] font-semibold text-white transition-colors shrink-0"
             >
               Sign In
@@ -139,7 +176,10 @@ export default function Sidebar() {
               </span>
             </div>
             <button
-              onClick={signOut}
+              onClick={() => {
+                signOut();
+                setSidebarOpen(false);
+              }}
               className="text-slate-500 hover:text-red-400 p-1 rounded transition-colors"
               title="Sign Out to Guest Mode"
             >
@@ -174,5 +214,6 @@ export default function Sidebar() {
         )}
       </div>
     </aside>
+  </>
   );
 }

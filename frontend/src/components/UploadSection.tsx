@@ -119,7 +119,7 @@ export default function UploadSection() {
         onDragOver={handleDrag}
         onDrop={handleDrop}
         className={cn(
-          "relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-12 transition-all duration-300",
+          "relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 sm:p-12 transition-all duration-300",
           isBusy && "pointer-events-none opacity-40 cursor-not-allowed",
           dragActive
             ? "border-indigo-500 bg-indigo-500/5"
@@ -224,7 +224,7 @@ export default function UploadSection() {
               <h4 className="mb-3 text-sm font-semibold text-[var(--foreground)]">
                 Column Mapping
               </h4>
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 {Object.entries(validation.columns_mapped).map(([standard, csv]) => (
                   <div key={standard} className="flex items-center gap-2">
                     <span className="rounded bg-indigo-500/10 px-2 py-0.5 font-mono text-indigo-400">
@@ -347,11 +347,11 @@ export default function UploadSection() {
               </div>
             </div>
           ) : (
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleReset}
                 disabled={isBusy}
-                className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)] disabled:opacity-25 disabled:cursor-not-allowed pointer-events-auto disabled:pointer-events-none"
+                className="w-full sm:w-auto rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)] disabled:opacity-25 disabled:cursor-not-allowed pointer-events-auto disabled:pointer-events-none text-center"
               >
                 Cancel
               </button>
@@ -359,7 +359,7 @@ export default function UploadSection() {
                 <button
                   onClick={handleUpload}
                   disabled={isBusy}
-                  className="rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:from-indigo-600 hover:to-purple-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:from-indigo-600 hover:to-purple-700 disabled:opacity-40 disabled:cursor-not-allowed text-center"
                 >
                   Upload & Process {validation.valid_rows.toLocaleString()} Transactions
                 </button>

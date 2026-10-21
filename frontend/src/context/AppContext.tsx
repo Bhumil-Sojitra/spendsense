@@ -36,12 +36,14 @@ interface AppState {
   analysisRunning: boolean;
   error: string | null;
   activeTab: string;
+  sidebarOpen: boolean;
   isUploading: boolean;
   isValidating: boolean;
   uploadProgress: number;
   uploadStatus: string | null;
 
   // Actions
+  setSidebarOpen: (open: boolean) => void;
   setIsValidating: (v: boolean) => void;
   setActiveTab: (tab: string) => void;
   checkBackend: () => Promise<void>;
@@ -78,6 +80,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [analysisRunning, setAnalysisRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -329,6 +332,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         analysisRunning,
         error,
         activeTab,
+        sidebarOpen,
+        setSidebarOpen,
         isUploading,
         isValidating,
         setIsValidating,

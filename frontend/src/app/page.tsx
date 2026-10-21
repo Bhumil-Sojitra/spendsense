@@ -41,7 +41,7 @@ function AppContent() {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <main className="ml-64 flex-1 p-6 lg:p-8">
+      <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 lg:ml-64 transition-all">
         {/* Top Header with Role & Workspace context */}
         <UserHeader />
 

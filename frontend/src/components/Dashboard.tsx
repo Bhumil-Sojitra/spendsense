@@ -271,17 +271,17 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-[var(--foreground)]">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--foreground)]">
             Dashboard
           </h2>
-          <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+          <p className="mt-1 text-xs sm:text-sm text-[var(--muted-foreground)]">
             {dataset.name} — {formatNumber(metrics.total_transactions)} transactions
           </p>
         </div>
         {analysisResult && (
-          <div className="flex items-center gap-2 rounded-lg bg-indigo-500/10 px-3 py-1.5 text-xs font-medium text-indigo-400">
+          <div className="flex items-center gap-2 rounded-lg bg-indigo-500/10 px-3 py-1.5 text-xs font-medium text-indigo-400 self-start sm:self-auto shrink-0">
             <CheckCircle2 className="h-3.5 w-3.5" />
             Analysis Complete — {analysisResult.method.replace(/_/g, " ")}
           </div>

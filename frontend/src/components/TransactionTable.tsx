@@ -382,55 +382,57 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <h2 className="text-2xl font-bold text-[var(--foreground)]">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--foreground)]">
             {showExcluded ? "Excluded Transactions" : "Transactions"}
           </h2>
-          <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+          <p className="mt-1 text-xs sm:text-sm text-[var(--muted-foreground)]">
             {formatNumber(total)} {showExcluded ? "excluded" : ""} transactions found
           </p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-[200px]">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        <div className="relative flex-1 min-w-0">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted-foreground)]" />
           <input
             type="text"
             placeholder="Search description, merchant, or category..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="w-full rounded-lg border border-[var(--border)] bg-[var(--card)] py-2 pl-10 pr-4 text-sm text-[var(--foreground)] placeholder-[var(--muted-foreground)] outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25"
+            className="w-full rounded-lg border border-[var(--border)] bg-[var(--card)] py-2 pl-10 pr-4 text-xs sm:text-sm text-[var(--foreground)] placeholder-[var(--muted-foreground)] outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25"
           />
         </div>
-        <select
-          value={anomalyFilter}
-          onChange={(e) => {
-            setAnomalyFilter(e.target.value);
-            setPage(1);
-          }}
-          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm text-[var(--foreground)] outline-none"
-        >
-          <option value="all">All Flags</option>
-          <option value="anomaly">Anomalies Only</option>
-          <option value="normal">Normal Only</option>
-        </select>
-        <select
-          value={reviewFilter}
-          onChange={(e) => {
-            setReviewFilter(e.target.value);
-            setPage(1);
-          }}
-          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm text-[var(--foreground)] outline-none"
-        >
-          <option value="all">All Reviews</option>
-          <option value="pending">Pending</option>
-          <option value="reviewed_ok">Reviewed OK</option>
-          <option value="reviewed_suspicious">Suspicious</option>
-          <option value="reviewed_false_positive">False Positive</option>
-        </select>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <select
+            value={anomalyFilter}
+            onChange={(e) => {
+              setAnomalyFilter(e.target.value);
+              setPage(1);
+            }}
+            className="flex-1 sm:flex-initial rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-xs sm:text-sm text-[var(--foreground)] outline-none"
+          >
+            <option value="all">All Flags</option>
+            <option value="anomaly">Anomalies Only</option>
+            <option value="normal">Normal Only</option>
+          </select>
+          <select
+            value={reviewFilter}
+            onChange={(e) => {
+              setReviewFilter(e.target.value);
+              setPage(1);
+            }}
+            className="flex-1 sm:flex-initial rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-xs sm:text-sm text-[var(--foreground)] outline-none"
+          >
+            <option value="all">All Reviews</option>
+            <option value="pending">Pending</option>
+            <option value="reviewed_ok">Reviewed OK</option>
+            <option value="reviewed_suspicious">Suspicious</option>
+            <option value="reviewed_false_positive">False Positive</option>
+          </select>
+        </div>
       </div>
 
       {/* Table */}
@@ -491,15 +493,15 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
       </div>
 
       {/* Numbered Pagination (1, 2, 3, 4, 5 ... n) */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-2 text-sm text-[var(--muted-foreground)]">
-        <div className="flex items-center gap-3">
-          <span>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pt-2 text-xs sm:text-sm text-[var(--muted-foreground)]">
+        <div className="flex items-center justify-between sm:justify-start gap-3">
+          <span className="truncate">
             Showing <span className="font-semibold text-[var(--foreground)]">{formatNumber(startRow)}</span> to{" "}
             <span className="font-semibold text-[var(--foreground)]">{formatNumber(endRow)}</span> of{" "}
             <span className="font-semibold text-[var(--foreground)]">{formatNumber(total)}</span>
           </span>
-          <div className="flex items-center gap-1.5 pl-2 border-l border-[var(--border)]">
-            <span className="text-xs">Per page:</span>
+          <div className="flex items-center gap-1.5 pl-2 border-l border-[var(--border)] shrink-0">
+            <span className="text-[11px] sm:text-xs">Per page:</span>
             <select
               value={pageSize}
               onChange={(e) => {
@@ -516,12 +518,12 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex items-center justify-between sm:justify-end gap-1.5">
           {/* First & Prev */}
           <button
             onClick={() => setPage(1)}
             disabled={currentPage <= 1}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none shrink-0"
             title="First page"
           >
             <ChevronsLeft className="h-4 w-4" />
@@ -529,46 +531,53 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={currentPage <= 1}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none shrink-0"
             title="Previous page"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
 
-          {/* Number buttons: 1, 2, 3, 4, 5 ... n */}
-          {paginationItems.map((item, idx) => {
-            if (item === "...") {
+          {/* On Mobile: compact page badge */}
+          <div className="sm:hidden px-2 text-xs font-semibold text-[var(--foreground)]">
+            Page {currentPage} of {totalPages}
+          </div>
+
+          {/* Number buttons: 1, 2, 3, 4, 5 ... n (hidden on mobile) */}
+          <div className="hidden sm:flex items-center gap-1.5">
+            {paginationItems.map((item, idx) => {
+              if (item === "...") {
+                return (
+                  <span
+                    key={`ellipsis-${idx}`}
+                    className="flex h-8 w-8 items-center justify-center text-xs text-[var(--muted-foreground)] select-none"
+                  >
+                    ...
+                  </span>
+                );
+              }
+              const isCurrent = item === currentPage;
               return (
-                <span
-                  key={`ellipsis-${idx}`}
-                  className="flex h-8 w-8 items-center justify-center text-xs text-[var(--muted-foreground)] select-none"
+                <button
+                  key={item}
+                  onClick={() => setPage(item)}
+                  className={cn(
+                    "flex h-8 min-w-[32px] items-center justify-center rounded-lg px-2 text-xs font-semibold transition-all",
+                    isCurrent
+                      ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25 border border-indigo-500"
+                      : "border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--secondary)] text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                  )}
                 >
-                  ...
-                </span>
+                  {item}
+                </button>
               );
-            }
-            const isCurrent = item === currentPage;
-            return (
-              <button
-                key={item}
-                onClick={() => setPage(item)}
-                className={cn(
-                  "flex h-8 min-w-[32px] items-center justify-center rounded-lg px-2 text-xs font-semibold transition-all",
-                  isCurrent
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25 border border-indigo-500"
-                    : "border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--secondary)] text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
-                )}
-              >
-                {item}
-              </button>
-            );
-          })}
+            })}
+          </div>
 
           {/* Next & Last */}
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage >= totalPages}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none shrink-0"
             title="Next page"
           >
             <ChevronRight className="h-4 w-4" />
@@ -576,7 +585,7 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
           <button
             onClick={() => setPage(totalPages)}
             disabled={currentPage >= totalPages}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] transition-colors hover:bg-[var(--secondary)] disabled:opacity-30 disabled:pointer-events-none shrink-0"
             title="Last page"
           >
             <ChevronsRight className="h-4 w-4" />
@@ -593,7 +602,7 @@ export default function TransactionTable({ showExcluded = false }: TransactionTa
                   setJumpPageInput("");
                 }
               }}
-              className="ml-2 flex items-center gap-1.5"
+              className="ml-2 hidden sm:flex items-center gap-1.5"
             >
               <span className="text-xs text-[var(--muted-foreground)]">Go to:</span>
               <input
@@ -696,7 +705,7 @@ function TransactionDetailModal({
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="relative mx-4 w-full max-w-lg rounded-xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-2xl animate-fade-in">
+      <div className="relative mx-4 w-full max-w-lg rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-6 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
           className="absolute right-4 top-4 rounded p-1 text-[var(--muted-foreground)] hover:text-[var(--foreground)]"

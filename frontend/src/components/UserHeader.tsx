@@ -14,12 +14,13 @@ import {
   User,
   Database,
   CheckCircle2,
+  Menu,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function UserHeader() {
   const { profile, isAuthenticated, isGuest, openAuthModal, signOut, quickDemoLogin } = useAuth();
-  const { dataset, analysisResult } = useApp();
+  const { dataset, analysisResult, setSidebarOpen } = useApp();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const roleColors = {
@@ -35,57 +36,66 @@ export default function UserHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-30 mb-6 -mt-6 -mx-6 lg:-mx-8 px-6 lg:px-8 py-3.5 border-b border-[var(--border)] bg-[#0b0f19]/90 backdrop-blur-md flex items-center justify-between gap-4">
-      {/* Left: Organization & Dataset Status */}
-      <div className="flex items-center gap-3 min-w-0">
-        <div className="flex items-center gap-2">
-          <Building2 className="h-4 w-4 text-indigo-400 shrink-0" />
-          <span className="text-sm font-semibold text-white truncate">
+    <header className="sticky top-0 z-30 mb-6 -mt-4 sm:-mt-6 lg:-mt-8 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 border-b border-[var(--border)] bg-[#0b0f19]/90 backdrop-blur-md flex items-center justify-between gap-2 sm:gap-4">
+      {/* Left: Mobile Menu Toggle & Organization / Dataset Status */}
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <button
+          type="button"
+          onClick={() => setSidebarOpen(true)}
+          className="rounded-lg p-1.5 -ml-1 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors lg:hidden shrink-0"
+          aria-label="Open Navigation Menu"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+          <Building2 className="h-4 w-4 text-indigo-400 shrink-0 hidden sm:inline" />
+          <span className="text-xs sm:text-sm font-semibold text-white truncate max-w-[130px] sm:max-w-[200px] md:max-w-xs">
             {profile?.organization || "Guest Demo Workspace"}
           </span>
         </div>
 
-        <span className="text-[var(--border)] hidden sm:inline">|</span>
+        <span className="text-[var(--border)] hidden md:inline">|</span>
 
-        {/* Dataset Pill */}
+        {/* Dataset Pill (hidden on small screens to prevent crowding) */}
         {dataset ? (
-          <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-slate-800/80 px-2.5 py-1 text-xs text-slate-300 border border-slate-700/60 truncate">
+          <div className="hidden md:flex items-center gap-1.5 rounded-full bg-slate-800/80 px-2.5 py-1 text-xs text-slate-300 border border-slate-700/60 truncate max-w-[220px]">
             <Database className="h-3 w-3 text-indigo-400 shrink-0" />
             <span className="font-medium truncate">{dataset.name}</span>
-            <span className="text-[10px] text-slate-500">
+            <span className="text-[10px] text-slate-500 shrink-0">
               ({dataset.valid_rows.toLocaleString()} rows)
             </span>
             {analysisResult && (
-              <span className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-medium ml-1">
+              <span className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-medium shrink-0 ml-1">
                 <CheckCircle2 className="h-2.5 w-2.5" />
                 Scored
               </span>
             )}
           </div>
         ) : (
-          <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-slate-900/60 px-2.5 py-1 text-xs text-slate-500 border border-slate-800">
+          <div className="hidden md:flex items-center gap-1.5 rounded-full bg-slate-900/60 px-2.5 py-1 text-xs text-slate-500 border border-slate-800 shrink-0 whitespace-nowrap">
             <span>No dataset loaded</span>
           </div>
         )}
       </div>
 
       {/* Right: Auth Profile / Guest Demo Controls */}
-      <div className="flex items-center gap-3 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
         {/* Viva Quick Role Switcher Pill */}
         <div className="relative">
           <button
             type="button"
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-1.5 rounded-lg border border-slate-700/80 bg-slate-900/80 hover:bg-slate-800 px-2.5 py-1.5 text-xs text-slate-300 transition-all"
+            className="flex items-center gap-1.5 rounded-lg border border-slate-700/80 bg-slate-900/80 hover:bg-slate-800 px-2 sm:px-2.5 py-1.5 text-xs text-slate-300 transition-all shrink-0"
             title="Switch roles or login"
           >
-            <Sparkles className="h-3 w-3 text-amber-400 shrink-0" />
-            <span className="hidden md:inline text-[11px] font-medium">
+            <Sparkles className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+            <span className="hidden sm:inline text-[11px] font-medium whitespace-nowrap">
               {isGuest
                 ? "Guest Demo"
                 : `${profile?.display_name || "User"} (${roleLabels[profile?.role || "admin"].split(" ")[0]})`}
             </span>
-            <ChevronDown className="h-3 w-3 text-slate-400" />
+            <ChevronDown className="h-3 w-3 text-slate-400 shrink-0" />
           </button>
 
           {/* Quick Dropdown */}
@@ -182,10 +192,11 @@ export default function UserHeader() {
         {isGuest ? (
           <button
             onClick={() => openAuthModal("signin")}
-            className="flex items-center gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-indigo-500/30 transition-all"
+            className="flex items-center gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-indigo-500/30 transition-all whitespace-nowrap shrink-0"
           >
-            <LogIn className="h-3.5 w-3.5" />
-            <span>Sign In / Team</span>
+            <LogIn className="h-3.5 w-3.5 shrink-0" />
+            <span className="hidden sm:inline">Sign In / Team</span>
+            <span className="sm:hidden">Sign In</span>
           </button>
         ) : (
           <div className="flex items-center gap-2">
