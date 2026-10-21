@@ -1,4 +1,4 @@
-"""Pydantic schemas for SpendSense AI API contracts."""
+"""Pydantic schemas for SpendSense API contracts."""
 
 from pydantic import BaseModel, Field
 from typing import Optional

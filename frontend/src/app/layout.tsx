@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SpendSense AI — Financial Anomaly Detection",
+  title: "SpendSense — Financial Anomaly Detection",
   description:
     "AI-powered financial transaction anomaly detection using Isolation Forest and statistical methods. Upload CSV data, detect unusual patterns, review flagged transactions, and export results.",
 };

@@ -1,4 +1,4 @@
-"""API integration tests for SpendSense AI FastAPI routes."""
+"""API integration tests for SpendSense FastAPI routes."""
 
 import pytest
 import io

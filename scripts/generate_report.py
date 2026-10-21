@@ -1,5 +1,5 @@
 """
-Generate complete academic project report for SpendSense AI.
+Generate complete academic project report for SpendSense.
 Compliant with Bhagwan Mahavir University (BAIT, Surat) guidelines and format.
 """
 
@@ -313,7 +313,7 @@ def create_dfd_level0(output_path):
     # Process 0
     circle = patches.Circle((5.0, 2.5), radius=1.3, facecolor="#dbeafe", edgecolor="#1d4ed8", lw=2)
     ax.add_patch(circle)
-    ax.text(5.0, 2.65, "0.0\nSpendSense AI\nPlatform", ha="center", va="center", fontweight="bold", fontsize=9, color="#1e3a8a")
+    ax.text(5.0, 2.65, "0.0\nSpendSense\nPlatform", ha="center", va="center", fontweight="bold", fontsize=9, color="#1e3a8a")
 
     # Entity 2: Compliance / Stakeholder
     rect2 = patches.Rectangle((7.2, 1.8), 2.2, 1.4, facecolor="#f1f5f9", edgecolor="#334155", lw=1.5)
@@ -424,7 +424,7 @@ def create_ui_mockup(output_path, title, subtitle):
     ax.plot(0.9, 4.35, "o", ms=5, color="#ef4444")
     ax.plot(1.2, 4.35, "o", ms=5, color="#f59e0b")
     ax.plot(1.5, 4.35, "o", ms=5, color="#10b981")
-    ax.text(5.0, 4.35, "SpendSense AI — " + title, ha="center", va="center", color="#cbd5e1", fontsize=8, fontweight="bold")
+    ax.text(5.0, 4.35, "SpendSense — " + title, ha="center", va="center", color="#cbd5e1", fontsize=8, fontweight="bold")
 
     # Content Box
     ax.text(5.0, 2.7, title, ha="center", va="center", color="#38bdf8", fontsize=12, fontweight="bold")

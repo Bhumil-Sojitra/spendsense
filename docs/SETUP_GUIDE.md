@@ -1,6 +1,6 @@
-# SpendSense AI — Setup & Installation Guide
+# SpendSense — Setup & Installation Guide
 
-This guide walks through setting up SpendSense AI locally on Windows, macOS, or Linux.
+This guide walks through setting up SpendSense locally on Windows, macOS, or Linux.
 
 ---
 
@@ -15,7 +15,7 @@ This guide walks through setting up SpendSense AI locally on Windows, macOS, or 
 
 ## 2. Quick Start (Demo Mode)
 
-SpendSense AI operates out-of-the-box in **Demo Mode** with zero external database configuration required.
+SpendSense operates out-of-the-box in **Demo Mode** with zero external database configuration required.
 
 ### Step 1: Set Up Backend
 

@@ -1,6 +1,6 @@
-# SpendSense AI — System Architecture & Design
+# SpendSense — System Architecture & Design
 
-SpendSense AI is a financial transaction anomaly detection platform designed for personal finance audit, enterprise expense tracking, and fraud surveillance.
+SpendSense is a financial transaction anomaly detection platform designed for personal finance audit, enterprise expense tracking, and fraud surveillance.
 
 ---
 

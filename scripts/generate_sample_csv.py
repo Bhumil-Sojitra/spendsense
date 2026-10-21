@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate sample financial transaction datasets for SpendSense AI testing."""
+"""Generate sample financial transaction datasets for SpendSense testing."""
 
 import os
 import random

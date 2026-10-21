@@ -70,7 +70,7 @@ export default function Sidebar() {
               <Activity className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-base font-bold gradient-text">SpendSense AI</h1>
+              <h1 className="text-base font-bold gradient-text">SpendSense</h1>
               <p className="text-[10px] font-medium text-[var(--muted-foreground)]">
                 Anomaly Detection
               </p>

@@ -1,4 +1,4 @@
-"""FastAPI application entry point for SpendSense AI."""
+"""FastAPI application entry point for SpendSense."""
 
 import logging
 from fastapi import FastAPI

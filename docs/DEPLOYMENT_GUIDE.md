@@ -1,6 +1,6 @@
-# SpendSense AI — Production Deployment Guide
+# SpendSense — Production Deployment Guide
 
-This guide details how to deploy SpendSense AI to production environments.
+This guide details how to deploy SpendSense to production environments.
 
 ---
 

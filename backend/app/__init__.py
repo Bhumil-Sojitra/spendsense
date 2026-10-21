@@ -1,1 +1,1 @@
-# SpendSense AI Backend
+# SpendSense Backend

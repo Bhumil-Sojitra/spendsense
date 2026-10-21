@@ -1,5 +1,5 @@
 /**
- * SpendSense AI API Client
+ * SpendSense API Client
  *
  * Communicates with the FastAPI backend for all data operations.
  */

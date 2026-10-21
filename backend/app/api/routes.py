@@ -1,4 +1,4 @@
-"""API routes for SpendSense AI backend."""
+"""API routes for SpendSense backend."""
 
 import uuid
 import io

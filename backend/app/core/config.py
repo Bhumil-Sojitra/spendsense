@@ -1,4 +1,4 @@
-"""Core configuration for SpendSense AI backend."""
+"""Core configuration for SpendSense backend."""
 
 from pydantic_settings import BaseSettings
 from typing import Optional
@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # App
-    APP_NAME: str = "SpendSense AI"
+    APP_NAME: str = "SpendSense"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
     ENVIRONMENT: str = "development"

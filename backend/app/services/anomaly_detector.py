@@ -1,4 +1,4 @@
-"""Machine Learning anomaly detection service for SpendSense AI.
+"""Machine Learning anomaly detection service for SpendSense.
 
 Implements:
 - Isolation Forest (primary unsupervised anomaly detector)

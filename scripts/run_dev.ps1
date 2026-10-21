@@ -1,6 +1,6 @@
-# SpendSense AI Development Launcher
+# SpendSense Development Launcher
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host " Starting SpendSense AI Dev Servers" -ForegroundColor Cyan
+Write-Host " Starting SpendSense Dev Servers" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 
 # Launch backend in separate PowerShell window

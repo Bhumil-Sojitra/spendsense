@@ -1,6 +1,6 @@
-# SpendSense AI Verification Suite
+# SpendSense Verification Suite
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host " SpendSense AI Verification Suite" -ForegroundColor Cyan
+Write-Host " SpendSense Verification Suite" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 
 $rootDir = Split-Path -Parent $PSScriptRoot

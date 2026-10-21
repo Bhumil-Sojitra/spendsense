@@ -1,6 +1,6 @@
-# SpendSense AI — REST API Documentation
+# SpendSense — REST API Documentation
 
-The SpendSense AI backend exposes a RESTful API powered by FastAPI.
+The SpendSense backend exposes a RESTful API powered by FastAPI.
 Interactive OpenAPI docs are accessible at `http://localhost:8000/docs` and Redoc at `http://localhost:8000/redoc`.
 
 All API endpoints are prefixed with `/api`.

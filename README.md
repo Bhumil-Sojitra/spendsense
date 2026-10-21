@@ -1,4 +1,4 @@
-# SpendSense AI — Financial Transaction Anomaly Detection
+# SpendSense — Financial Transaction Anomaly Detection
 
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.4-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.3-blue?style=flat&logo=react)](https://react.dev/)
@@ -8,7 +8,7 @@
 [![Tailwind CSS 4](https://img.shields.io/badge/TailwindCSS-4.0-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 [![Tests](https://img.shields.io/badge/Pytest-18%2F18%20Passed-brightgreen)](./backend/tests)
 
-**SpendSense AI** is a full-stack financial transaction anomaly detection platform. Built as an end-to-end college capstone project, it leverages unsupervised Machine Learning (**Isolation Forest**) paired with statistical heuristics (**Interquartile Range - IQR**) to inspect transaction streams, pinpoint suspicious spending activity, surface data-driven insights, and empower reviewers through an audit workflow.
+**SpendSense** is a full-stack financial transaction anomaly detection platform. Built as an end-to-end college capstone project, it leverages unsupervised Machine Learning (**Isolation Forest**) paired with statistical heuristics (**Interquartile Range - IQR**) to inspect transaction streams, pinpoint suspicious spending activity, surface data-driven insights, and empower reviewers through an audit workflow.
 
 ---
 

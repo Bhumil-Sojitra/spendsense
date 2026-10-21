@@ -7,7 +7,7 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-# Standard column names that SpendSense AI works with
+# Standard column names that SpendSense works with
 STANDARD_COLUMNS = {
     "date": [
         "date", "transaction_date", "trans_date", "txn_date", "datetime",

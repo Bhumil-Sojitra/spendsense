@@ -119,7 +119,7 @@ export default function AuthModal() {
               <Shield className="h-6 w-6" />
             </div>
             <h3 className="text-xl font-bold text-white tracking-tight">
-              SpendSense AI Workspace
+              SpendSense Workspace
             </h3>
             <p className="text-xs text-slate-400 mt-1">
               Sign in to save datasets, audit histories, and team review actions.

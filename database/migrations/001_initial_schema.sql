@@ -1,4 +1,4 @@
--- SpendSense AI Database Schema
+-- SpendSense Database Schema
 -- Migration: 001_initial_schema
 -- Apply this migration to your Supabase project via the SQL Editor
 

@@ -624,7 +624,7 @@ function EmptyDashboard() {
         <BarChart3 className="h-10 w-10 text-indigo-400" />
       </div>
       <h2 className="text-2xl font-bold text-[var(--foreground)]">
-        Welcome to SpendSense AI
+        Welcome to SpendSense
       </h2>
       <p className="mt-2 max-w-md text-sm text-[var(--muted-foreground)]">
         Upload a CSV dataset or load demo data to start detecting anomalies in
